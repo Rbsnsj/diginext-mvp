@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DigiPlus - خرید امن</title>
+  <style>
+    body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);margin:0;padding:20px;color:#222}
+    .container{max-width:1200px;margin:auto}
+    .header{background:#fff;padding:12px 20px;border-radius:10px;display:flex;justify-content:space-between;align-items:center}
+    .logo{font-weight:800;color:#2b6cb0;font-size:1.4rem;display:flex;align-items:flex-start;gap:8px}
+    .logo-icon{background:#ff8c42;color:#fff;width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:900;margin-top:2px;transition:all 0.25s ease;cursor:pointer}
+    .logo-icon:hover{background:#e67632;transform:translateY(-3px);box-shadow:0 6px 20px rgba(230,118,50,0.3)}
+    .logo-text{transition:all 0.25s ease;cursor:pointer}
+    .logo-text:hover{transform:translateY(-2px);text-shadow:0 2px 8px rgba(43,108,176,0.3)}
+    .logo-text{font-family:'Arial',sans-serif;font-weight:600}
+    .slogan{font-family:'Tahoma',sans-serif;font-size:0.9rem;color:#666;font-weight:400}
+    .user-info{display:flex;gap:10px;align-items:center}
+    .balance{background:#27ae60;color:#fff;padding:6px 10px;border-radius:8px;font-weight:700}
+    .cart-icon, .orders-icon{cursor:pointer;position:relative;background:#667eea;color:#fff;padding:6px 10px;border-radius:8px}
+    .cart-badge{position:absolute;top:-6px;left:-6px;background:#e74c3c;color:#fff;padding:2px 6px;border-radius:8px;font-size:0.8rem;display:none}
+    .nav-tabs{margin:20px 0;display:flex;gap:8px;flex-wrap:wrap}
+    .nav-tab{background:#fff;color:#333;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
+    .nav-tab.active{background:#667eea;color:#fff}
+    .panel-dropdown{position:relative}
+    .dropdown-menu{position:absolute;right:0;top:100%;background:#fff;padding:8px;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.2);display:none;z-index:10}
+    .dropdown-menu.show{display:block}
+    .dropdown-item{padding:8px;border-radius:6px;cursor:pointer}
+    .dropdown-item:hover{background:#f1f5f9}
+    .content-card{background:#fff;border-radius:10px;padding:16px;margin-bottom:14px}
+    .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+    .product-card{background:#f8f9ff;padding:16px;border-radius:12px;display:flex;flex-direction:column;min-height:320px;transition:all 0.25s ease;border:1px solid rgba(102,126,234,0.1)}
+    .product-card:hover{background:#e8f4f8;transform:translateY(-6px);box-shadow:0 10px 30px rgba(102,126,234,0.15);border-color:rgba(102,126,234,0.2)}
+    .product-image{font-size:56px;text-align:center;margin-bottom:14px;padding:10px}
+    .product-title{font-weight:700;margin-bottom:12px;color:#333;line-height:1.4;font-size:0.95rem}
+    .product-price{font-size:1.2rem;font-weight:800;color:#27ae60;margin-bottom:12px}
+    .rating-section{margin-bottom:14px}
+    .stars{font-size:14px;margin-bottom:6px;display:flex;gap:2px;align-items:center}
+    .star{width:16px;height:16px;position:relative;display:inline-block}
+    .star svg{width:100%;height:100%;fill:#ddd;stroke:#ccc;stroke-width:1}
+    .star.filled svg{fill:#ffc107;stroke:#ffb300}
+    .star.half-filled svg{fill:url(#halfGradient);stroke:#ffb300}
+    .rating-text{font-size:0.85rem;color:#666;margin-top:2px}
+    .seller-info{margin-bottom:16px;flex:1;padding:8px 0}
+    .trust-badge{background:#27ae60;color:#fff;padding:4px 8px;margin-top:6px;margin-bottom:6px;display:inline-block;border-radius:8px;font-size:0.8rem;font-weight:700}
+    .trust-badge.verified{background:#27ae60}
+    .trust-badge.unverified{background:#e67e22}
+    .btn{padding:8px 12px;border:none;border-radius:6px;cursor:pointer;font-weight:700;margin:4px}
+    .btn-primary{background:#667eea;color:#fff}
+    .btn-success{background:#27ae60;color:#fff}
+    .btn-warning{background:#e67e22;color:#fff}
+    .btn-secondary{background:#6c757d;color:#fff}
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:20}
+    .modal.show{display:flex}
+    .modal-box{background:#fff;padding:24px;border-radius:16px;max-width:520px;width:95%;position:relative;max-height:85vh;overflow-y:auto}
+    .product-details{display:grid;grid-template-columns:auto;gap:0;max-width:100%}
+    .product-detail-image{font-size:70px;text-align:center;margin-bottom:16px;padding:16px;background:#f8f9ff;border-radius:12px}
+    .product-info{padding:0}
+    .product-specs{background:#f8f9ff;padding:14px;border-radius:8px;margin:14px 0}
+    .spec-item{margin-bottom:6px;font-size:0.9rem}
+    .spec-label{font-weight:600;color:#555;display:inline-block;min-width:90px}
+    .price-section{background:#f8f9ff;border:2px solid #27ae60;border-radius:8px;padding:12px;margin:14px 0;text-align:center}
+    .seller-badge{background:#667eea;color:white;padding:6px 12px;border-radius:16px;font-size:0.85rem;margin:10px 0;display:inline-block}
+    .modal-close{position:absolute;top:8px;left:8px;cursor:pointer;font-weight:800;color:#333}
+    .order-item{background:#f8f9ff;padding:10px;border-radius:8px;margin-bottom:8px}
+    .timer{font-weight:800;color:#b81d13}
+    .admin-sellers,.courier-list,.returns-list{display:flex;flex-direction:column;gap:8px}
+    .seller-row,.courier-row,.return-row{background:#f1f5f9;padding:8px;border-radius:8px;display:flex;justify-content:space-between;align-items:center}
+    .returned{color:#27ae60;font-weight:700}
+    .tick-green{color:#27ae60;font-weight:700}
+    .text-gray{color:#777;font-weight:600}
+    .return-table{display:grid;grid-template-columns:1fr 1fr 1fr 2fr;gap:8px;background:#f8f9ff;padding:8px;border-radius:8px;margin-bottom:8px}
+    .delivery-table{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 2fr;gap:8px;background:#f8f9ff;padding:8px;border-radius:8px;margin-bottom:8px}
+    .return-header{font-weight:700;background:#e0e7ff;padding:8px;border-radius:6px;text-align:center}
+    .return-cell{padding:8px;background:#f1f5f9;border-radius:6px;text-align:center}
+    .seller-status{margin-bottom:20px}
+
+    /* ---------- Team / Footer styles ---------- */
+    .team-section {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 40px;
+        border-radius: 20px;
+        margin-top: 40px;
+    }
+
+    .team-section h2 { margin: 0; }
+
+    .team-features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 30px;
+        align-items: stretch;
+    }
+
+    .team-credit-card {
+        grid-column: span 2;
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(8px);
+        padding: 22px;
+        border-radius: 15px;
+        transition: all 0.25s ease;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .team-credit-card:hover {
+        background: rgba(255,255,255,0.15);
+        transform: translateY(-6px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    @media (max-width: 768px) {
+        .team-credit-card {
+            grid-column: span 1;
+        }
+    }
+
+    .feature-card {
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(8px);
+        padding: 22px;
+        border-radius: 15px;
+        transition: all 0.25s ease;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .feature-card:hover {
+        background: rgba(255,255,255,0.15);
+        transform: translateY(-6px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    .feature-title {
+        font-size: 1.15rem;
+        font-weight: 800;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .feature-description {
+        line-height: 1.6;
+        opacity: 0.95;
+        font-size: 0.98rem;
+    }
+
+    .training-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+    }
+
+    .training-card {
+        background: #f8f9ff;
+        padding: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        border: 1px solid #e0e7ff;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .training-card:hover {
+        background: #e8f4f8;
+        border-color: #667eea;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+    }
+
+    .training-card h4 {
+        color: #667eea;
+        margin: 0 0 10px 0;
+    }
+
+    .training-card p {
+        color: #666;
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    .training-notification {
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        background: #e74c3c;
+        color: #fff;
+        padding: 2px 6px;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        display: none;
+    }
+
+    @media (max-width: 480px) {
+      .team-section { padding: 24px; }
+      .feature-card { padding: 18px; }
+      .feature-title { font-size: 1rem; gap:8px; }
+      .training-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">
+      <div>
+        <div class="logo-text">دیجی پلاس</div>
+        <div class="slogan">نماد اعتماد</div>
+      </div>
+      <div class="logo-icon">+</div>
+    </div>
+    <div class="user-info">
+      <div class="balance" id="balanceDiv" style="display:none">موجودی: <span id="userBalance">0</span> تومان</div>
+      <div class="cart-icon" id="trainingIcon" onclick="showSalesTrainingMenu()" style="display:none;margin-left:15px">📚 آموزش ترفندها و تکنیک های فروش<span class="cart-badge" id="trainingBadge">0</span></div>
+      <div class="orders-icon" id="ordersIcon" onclick="showSection('myorders')" style="display:none">📋 سفارشات من</div>
+      <div class="cart-icon" id="cartIcon" onclick="showSection('cart')" style="display:none">🛒 سبد خرید<span class="cart-badge" id="cartBadge">0</span></div>
+      <div id="username">
+        <span id="userDisplayName">پارسا سخن سنج</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="showSection('shop')">🛍️ فروشگاه</div>
+    <div class="nav-tab panel-dropdown">
+      <span id="panelTitle">👤 پنل من ▾</span>
+      <div class="dropdown-menu" id="panelMenu">
+        <div class="dropdown-item" onclick="openPanel('customer')">مشتری</div>
+        <div class="dropdown-item" onclick="openPanel('seller')">فروشنده</div>
+        <div class="dropdown-item" onclick="openPanel('admin')">مدیریت</div>
+        <div class="dropdown-item" onclick="openPanel('courier')">پیک</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="shop" class="content-card">
+    <h3>محصولات</h3>
+    <div class="products-grid" id="productsGrid"></div>
+
+    <!-- Team Section (Footer) -->
+    <div class="team-section" aria-labelledby="team-heading">
+        <h2 id="team-heading" style="text-align: center; font-size: 2rem; margin-bottom: 20px;">
+            حل مشکل عدم اعتماد به فروشندگان ناشناس
+        </h2>
+
+        <div class="team-features" role="list">
+            <div class="feature-card" role="listitem">
+                <div>
+                  <div class="feature-title">
+                      <span>🥇</span>
+                      <span>برچسب اعتماد دیجی‌کالا</span>
+                  </div>
+                  <div class="feature-description">
+                      فروشندگان با پرداخت ضمانت مالی، برچسب اعتماد دریافت می‌کنند که اعتبار آن‌ها را تضمین می‌کند.
+                      <br><br>
+                      <strong>برای مشاهده:</strong> روی برچسب سبز کنار نام فروشنده hover کنید یا از منوی پنل من &gt; فروشنده، درخواست برچسب دهید.
+                  </div>
+                </div>
+            </div>
+
+            <div class="feature-card" role="listitem">
+                <div>
+                  <div class="feature-title">
+                      <span>💳</span>
+                      <span>پرداخت امن</span>
+                  </div>
+                  <div class="feature-description">
+                      مبلغ خرید تا زمان تحویل کالا در حساب امانت نگهداری می‌شود و پس از تأیید پیک به فروشنده منتقل می‌گردد.
+                      <br><br>
+                      <strong>برای مشاهده:</strong> در صفحه جزئیات محصول، روی علامت سؤال کنار دکمه پرداخت امن کلیک کنید.
+                  </div>
+                </div>
+            </div>
+
+            <div class="feature-card" role="listitem">
+                <div>
+                  <div class="feature-title">
+                      <span>↩️</span>
+                      <span>مرجوعی 14 روزه</span>
+                  </div>
+                  <div class="feature-description">
+                      خریداران تا 14 روز فرصت مرجوع کردن کالا را دارند که اعتماد به خرید را افزایش می‌دهد.
+                      <br><br>
+                      <strong>برای مشاهده:</strong> از منوی پنل من &gt; مشتری، کالاهای خریداری شده را مشاهده کنید.
+                  </div>
+                </div>
+            </div>
+
+            <div class="feature-card" role="listitem">
+                <div>
+                  <div class="feature-title">
+                      <span>⚙️</span>
+                      <span>سیستم نظارت پیشرفته</span>
+                  </div>
+                  <div class="feature-description">
+                      سیستم نظارت بر فروشندگان و تأیید برچسب اعتماد برای کنترل کیفیت محصولات.
+                      <br><br>
+                      <strong>برای مشاهده:</strong> از منوی پنل من &gt; مدیریت، وضعیت فروشندگان را بررسی کنید.
+                  </div>
+                </div>
+            </div>
+
+            <div class="feature-card" role="listitem">
+                <div>
+                  <div class="feature-title">
+                      <span>📦✍️</span>
+                      <span>تحویل امن با امضا</span>
+                  </div>
+                  <div class="feature-description">
+                      پیک‌ها با دریافت امضای دیجیتال، تحویل کالا را تأیید و انتقال وجه را فعال می‌کنند.
+                      <br><br>
+                      <strong>برای مشاهده:</strong> از منوی پنل من &gt; پیک، فرآیند تحویل را شبیه‌سازی کنید.
+                  </div>
+                </div>
+            </div>
+
+            <div class="feature-card" role="listitem">
+                <div>
+                  <div class="feature-title">
+                      <span>⚡</span>
+                      <span>تعاملات Realtime در این MVP</span>
+                  </div>
+                  <div class="feature-description">
+                      <strong>برای فروشنده:</strong> پنل من &gt; فروشنده &gt; درخواست برچسب اعتماد. سپس پنل من &gt; مدیریت برای مشاهده تغییر وضعیت.
+                      <br><br>
+                      <strong>برای پیک:</strong> پنل من &gt; پیک &gt; تایید تحویل. سپس پنل من &gt; مدیریت برای مشاهده تیک سبز.
+                      <br><br>
+                      <strong>برای مشتری:</strong> خرید محصول، سپس مرجوع کالا از "سفارشات من". در پنل مدیریت تغییرات را ببینید.
+                  </div>
+                </div>
+            </div>
+
+            <div class="feature-card" role="listitem">
+                <div>
+                  <div class="feature-title">
+                      <span>🎓</span>
+                      <span>آموزش ترفندها و تکنیک های فروش به فروشندگان</span>
+                  </div>
+                  <div class="feature-description">
+                      راهنمای جامع فروشندگان شامل آموزش اخذ برچسب‌های اعتماد، تکنیک‌های بهینه‌سازی محصول و استراتژی‌های افزایش فروش.
+                      <br><br>
+                      <strong>برای مشاهده:</strong> از منوی پنل من &gt; فروشنده، روی دکمه "آموزش ترفندهای فروش" کلیک کنید و آموزش‌های کاربردی را مطالعه نمایید.
+                  </div>
+                </div>
+            </div>
+
+            <div class="team-credit-card" role="listitem">
+                <div>
+                  <div class="feature-title">
+                      <span>🚀</span>
+                      <span>طرح توسط گروه استارتاپی Pal Labs</span>
+                  </div>
+                  <div class="feature-description" style="margin-top: 15px;">
+                      محمد سخن سنج ، فاطمه صباغ کاشانی
+                      <br><br>
+                      این MVP برای حل مشکل عدم اعتماد به فروشندگان ناشناس در پلتفرم‌های تجارت الکترونیک طراحی شده است.
+                      <br><br>
+                      <div style="text-align: center; margin-top: 20px;">
+                        <span style="opacity: 0.7; font-size: 0.85rem; font-style: italic;">"دهمین کمپ استارتاپی دیجی نکست"</span>
+                      </div>
+                  </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- End Team Section -->
+
+  </div>
+
+  <div id="cart" class="content-card" style="display:none">
+    <h3>سبد خرید</h3>
+    <div id="cartItems">سبد خرید خالی است.</div>
+  </div>
+
+  <div id="myorders" class="content-card" style="display:none">
+    <h3>سفارشات من</h3>
+    <div id="myOrdersList">هنوز سفارشی ندارید.</div>
+  </div>
+
+  <div id="customer" class="content-card" style="display:none">
+    <h3>پنل مشتری</h3>
+    <p><strong>نام کاربری:</strong> پارسا سخن سنج</p>
+    <p><strong>آدرس:</strong> تهران، خیابان ولیعصر، پلاک ۱۲۳</p>
+    <p><strong>شماره تماس:</strong> 09120000000</p>
+    <h4>سفارش‌ها</h4>
+    <div id="customerOrdersList"></div>
+  </div>
+
+  <div id="seller" class="content-card" style="display:none">
+    <h3>پنل فروشنده</h3>
+    <p><strong>نام فروشنده:</strong> فروشگاه تک استار</p>
+    <p><strong>آدرس:</strong> اصفهان، خیابان چهارباغ عباسی</p>
+    <p><strong>شماره تماس:</strong> 031300000</p>
+    <div class="seller-status" id="sellerStatus">وضعیت: در انتظار درخواست</div>
+    <button class="btn btn-success" onclick="requestTrustBadge()">🛡️ درخواست برچسب اعتماد دیجی کالا</button>
+  </div>
+
+  <div id="admin" class="content-card" style="display:none">
+    <h3>پنل مدیریت</h3>
+    <h4>وضعیت تیک اعتماد فروشنده‌ها</h4>
+    <div class="admin-sellers" id="adminSellers"></div>
+    <h4>وضعیت دریافتی کالا</h4>
+    <div class="courier-list" id="adminCourierStatus"></div>
+    <h4>وضعیت مرجوعی‌ها</h4>
+    <div class="returns-list" id="returnStatus"></div>
+  </div>
+
+  <div id="courier" class="content-card" style="display:none">
+    <h3>پنل پیک</h3>
+    <div class="courier-list" id="courierList"></div>
+  </div>
+
+  <!-- صفحه آموزشی -->
+  <div id="salesTraining" class="content-card" style="display:none">
+    <h3>📚 آموزش ترفندهای فروش</h3>
+    <p>آموزش‌هایی برای افزایش فروش و اعتمادسازی</p>
+    
+    <div class="training-grid">
+      <div class="training-card" onclick="showTrainingContent('trustBadge')">
+        <span id="trustBadgeNotif" class="training-notification">1</span>
+        <h4>🛡️ آموزش اخذ برچسب اعتماد دیجی کالا</h4>
+        <p>راهنمای کامل دریافت برچسب اعتماد رسمی دیجی کالا</p>
+      </div>
+      
+      <div class="training-card" onclick="showTrainingContent('shaparak')">
+        <span id="shaparakNotif" class="training-notification">1</span>
+        <h4>🪙 آموزش اخذ برچسب شاپرک</h4>
+        <p>مراحل ثبت‌نام و اخذ نماد اعتماد الکترونیکی</p>
+      </div>
+      
+      <div class="training-card" onclick="showTrainingContent('salesTechniques')">
+        <span id="salesTechniquesNotif" class="training-notification">1</span>
+        <h4>🚀 تکنیک‌های فروش</h4>
+        <p>استراتژی‌های عملی برای افزایش فروش آنلاین</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- محتوای آموزشی -->
+  <div id="trainingContent" class="content-card" style="display:none">
+    <div id="trainingText"></div>
+    <button class="btn btn-secondary" onclick="showSection('salesTraining')" style="margin-top:20px">🔙 بازگشت به منوی آموزش</button>
+  </div>
+
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-close" onclick="closeModal()">✖</div>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+/* ---------- JavaScript ---------- */
+const state={
+  balance:50000000,
+  currentPanel: 'shop',
+  trainingNotifications: {
+    trustBadge: true,
+    shaparak: true,
+    salesTechniques: true
+  },
+  products:[
+    {id:1,name:'گوشی Samsung Galaxy S24 Ultra',price:32500000,seller:'موبایل پارس',trusted:true,img:'📱',desc:'گوشی پرچمدار سامسونگ با دوربین 200 مگاپیکسلی و پردازنده Snapdragon 8 Gen 3.\nویژگی‌ها: صفحه نمایش 6.8 اینچ، حافظه 512GB، باتری 5000mAh، وزن 220 گرم، سال ساخت 2024، کشور تولید: کره جنوبی',rating:4.3,reviewCount:124},
+    {id:2,name:'لپتاپ Asus ROG Gaming',price:45000000,seller:'تک استار',trusted:false,img:'💻',desc:'لپتاپ گیمینگ قدرتمند با کارت گرافیک RTX 4070 و پردازنده Intel Core i7.\nویژگی‌ها: رم 16GB، پردازنده i7، نمایشگر 240Hz، وزن 2.3 کیلوگرم، سال ساخت 2023، کشور تولید: تایوان',rating:4.7,reviewCount:89},
+    {id:3,name:'هدفون Apple AirPods Pro',price:8500000,seller:'صوتی دیجیتال',trusted:true,img:'🎧',desc:'هدفون بی‌سیم با قابلیت حذف نویز فعال و کیفیت صدای استودیویی.\nویژگی‌ها: باتری 30 ساعته، بلوتوث 5.2، درایور 30mm، وزن 250 گرم، حذف نویز فعال',rating:4.4,reviewCount:203},
+    {id:4,name:'ساعت هوشمند Apple Watch Series 9',price:15000000,seller:'گجت پلاس',trusted:true,img:'⌚',desc:'ساعت هوشمند پیشرفته با سنسورهای سلامتی و GPS دقیق.\nویژگی‌ها: نمایشگر Always-On، GPS، ضد آب، باتری 18 ساعته، سنسور اکسیژن خون',rating:4.6,reviewCount:156},
+    {id:5,name:'تبلت iPad Air M2',price:28000000,seller:'تبلت سرای اپل',trusted:false,img:'📱',desc:'تبلت قدرتمند اپل با پردازنده M2 و صفحه نمایش Liquid Retina.\nویژگی‌ها: صفحه 10.9 اینچ، حافظه 256GB، قلم Apple Pencil، وزن 461 گرم، پردازنده M2',rating:4.5,reviewCount:87},
+    {id:6,name:'دوربین Canon EOS R5',price:95000000,seller:'عکاسی پرو',trusted:true,img:'📷',desc:'دوربین حرفه‌ای کانن با سنسور فول فریم 45 مگاپیکسلی.\nویژگی‌ها: 45 مگاپیکسل، فیلمبرداری 8K، لرزشگیر، وزن 738 گرم، سنسور فول فریم',rating:4.8,reviewCount:45},
+    {id:7,name:'کنسول PlayStation 5',price:22000000,seller:'گیم سنتر',trusted:true,img:'🎮',desc:'کنسول بازی نسل جدید سونی با پردازنده AMD Zen 2.\nویژگی‌ها: پردازنده 8 هسته‌ای، کارت گرافیک RDNA 2، حافظه 825GB SSD، پشتیبانی از 4K، Ray Tracing',rating:4.7,reviewCount:312},
+    {id:8,name:'ماوس Logitech MX Master 3S',price:3200000,seller:'کامپیوتر مرکزی',trusted:false,img:'🖱️',desc:'ماوس بی‌سیم حرفه‌ای با سنسور دقیق و باتری طولانی مدت.\nویژگی‌ها: سنسور 8000 DPI، باتری 70 روزه، اتصال بلوتوث و USB، طراحی ارگونومیک، مقاوم در برابر آب',rating:4.5,reviewCount:198}
+  ],
+  cart:[],
+  myOrders:[],
+  orders:[],
+  sellers:[
+    {name:'موبایل پارس',trusted:false,status:'در حال انتظار'},
+    {name:'تک استار',trusted:true,status:'(متاثر از Real-time interaction به عنوان فروشنده در این MVP)'}
+  ],
+  couriers:[
+    {order:'سفارش 1 - فرشاد کریمی',status:'تحویل و امضا شده',delivered:true,customer:'فرشاد کریمی',shop:'موبایل پارس',productCode:'PS-A1244722237834',courierName:'رضا احمدی'},
+    {order:'سفارش 2 - نسیم احمدی',status:'(متاثر از Real-time interaction به عنوان پیک در این MVP)',delivered:false,customer:'نسیم احمدی',shop:'تک استار',productCode:'PS-B1244722237834',courierName:'احمد نوری'}
+  ],
+  returns:[
+    {customer:'زهرا مهرابی',shop:'موبایل پارس',productCode:'PS-A1244722237834',status:'✓ مرجوع شده'},
+    {customer:'علی رضایی',shop:'تک استار',productCode:'PS-B1244722237834',status:'⏳ در انتظار دریافت مبلغ کالای مرجوعی'},
+    {customer:'پارسا سخن سنج',shop:'',productCode:'',status:'(متاثر از Real-time interaction به عنوان مشتری در این MVP)'}
+  ]
+};
+
+function updateTrainingNotifications() {
+  const notificationCount = Object.values(state.trainingNotifications).filter(Boolean).length;
+  const badge = document.getElementById('trainingBadge');
+  
+  if(notificationCount > 0) {
+    badge.style.display = 'inline-block';
+    badge.textContent = notificationCount;
+  } else {
+    badge.style.display = 'none';
+    badge.textContent = '0';
+  }
+}
+
+function fmt(n){return Number(n).toLocaleString('fa-IR')}
+
+function updateTrainingPageNotifications() {
+  const trustBadgeNotif = document.getElementById('trustBadgeNotif');
+  const shaparakNotif = document.getElementById('shaparakNotif');
+  const salesTechniquesNotif = document.getElementById('salesTechniquesNotif');
+  
+  trustBadgeNotif.style.display = state.trainingNotifications.trustBadge ? 'block' : 'none';
+  shaparakNotif.style.display = state.trainingNotifications.shaparak ? 'block' : 'none';
+  salesTechniquesNotif.style.display = state.trainingNotifications.salesTechniques ? 'block' : 'none';
+}
+
+function showSalesTrainingMenu(){
+  showSection('salesTraining');
+  updateTrainingPageNotifications();
+}
+
+function showTrainingContent(type) {
+  // حذف نوتیفیکیشن برای آموزش مشاهده شده
+  if(state.trainingNotifications[type]) {
+    state.trainingNotifications[type] = false;
+    updateTrainingNotifications();
+    updateTrainingPageNotifications();
+  }
+  
+  const contentDiv = document.getElementById('trainingText');
+  let content = '';
+  
+  switch(type) {
+    case 'trustBadge':
+      content = `
+        <h3>🛡️ آموزش اخذ برچسب اعتماد دیجی کالا</h3>
+        
+        <h4>🔹 مزایای برچسب اعتماد</h4>
+        <p>• افزایش 70% در نرخ کلیک روی محصولات</p>
+        <p>• نمایش در نتایج برتر جستجو</p>
+        <p>• اعتماد بیشتر مشتریان و کاهش نگرانی‌ها</p>
+        <p>• دسترسی به ابزارهای تبلیغاتی پیشرفته</p>
+        
+        <h4>🔹 مراحل دریافت برچسب</h4>
+        <p><strong>مرحله 1:</strong> تکمیل اطلاعات فروشگاه</p>
+        <p>- آپلود مدارک هویتی و مجوز فعالیت</p>
+        <p>- تأیید آدرس فیزیکی فروشگاه</p>
+        <p>- ثبت اطلاعات تماس صحیح</p>
+        
+        <p><strong>مرحله 2:</strong> پرداخت ضمانت نامه</p>
+        <p>- مبلغ: 50 میلیون تومان (قابل بازگشت)</p>
+        <p>- مدت نگهداری: 6 ماه</p>
+        <p>- شرایط بازگشت: عملکرد مناسب</p>
+        
+        <p><strong>مرحله 3:</strong> بررسی و تأیید</p>
+        <p>- زمان بررسی: 3 تا 7 روز کاری</p>
+        <p>- امتیاز عملکرد باید بالای 4.5 باشد</p>
+        <p>- حداقل 100 فروش موفق در 3 ماه گذشته</p>
+        
+        <div style="background:#e8f4f8; padding:15px; border-radius:8px; margin:15px 0">
+          <strong>💡 نکته مهم:</strong> پس از دریافت برچسب، باید حداقل 90% رضایت مشتریان را حفظ کنید.
+        </div>
+      `;
+      break;
+      
+    case 'shaparak':
+      content = `
+        <h3>🪙 آموزش اخذ برچسب شاپرک (نماد اعتماد الکترونیکی)</h3>
+        
+        <h4>🔹 معرفی نماد اعتماد</h4>
+        <p>نماد اعتماد الکترونیکی (اینماد) توسط مرکز توسعه تجارت الکترونیکی ایران صادر می‌شود و اعتبار رسمی فروشگاه شما را تأیید می‌کند.</p>
+        
+        <h4>🔹 مدارک مورد نیاز</h4>
+        <p><strong>اشخاص حقیقی:</strong></p>
+        <p>• کپی کارت ملی</p>
+        <p>• کپی پروانه کسب</p>
+        <p>• اظهارنامه مالیاتی</p>
+        <p>• تأیید آدرس محل کسب</p>
+        
+        <p><strong>اشخاص حقوقی:</strong></p>
+        <p>• کپی اساسنامه</p>
+        <p>• گواهینامه ثبت شرکت</p>
+        <p>• کارت ملی مدیرعامل</p>
+        <p>• فیش بانکی آخرین تراکنش</p>
+        
+        <h4>🔹 مراحل ثبت‌نام</h4>
+        <p><strong>گام 1:</strong> مراجعه به سایت enamad.ir</p>
+        <p><strong>گام 2:</strong> انتخاب "ثبت‌نام فروشگاه"</p>
+        <p><strong>گام 3:</strong> تکمیل فرم و آپلود مدارک</p>
+        <p><strong>گام 4:</strong> پرداخت هزینه (500 هزار تومان سالانه)</p>
+        <p><strong>گام 5:</strong> بررسی و تأیید (7 تا 14 روز)</p>
+        
+        <div style="background:#fff3cd; padding:15px; border-radius:8px; margin:15px 0">
+          <strong>⚠️ توجه:</strong> نماد باید در تمام صفحات فروشگاه قابل مشاهده باشد تا معتبر محسوب شود.
+        </div>
+        
+        <h4>🔹 نگهداری و تمدید</h4>
+        <p>• بازبینی سالانه الزامی است</p>
+        <p>• پاسخگویی به شکایات مشتریان</p>
+        <p>• حفظ استانداردهای کیفیت خدمات</p>
+      `;
+      break;
+      
+    case 'salesTechniques':
+      content = `
+        <h3>🚀 تکنیک‌های فروش مؤثر</h3>
+        
+        <h4>🔹 بهینه‌سازی عنوان محصول</h4>
+        <p><strong>فرمول طلایی:</strong> برند + مدل + ویژگی اصلی + کلمه کلیدی</p>
+        <p><strong>مثال:</strong> "گوشی سامسونگ S24 Ultra 512GB - دوربین 200 مگاپیکسل"</p>
+        <p>• استفاده از کلمات کلیدی پرجستجو</p>
+        <p>• اجتناب از کلمات اضافی و تکراری</p>
+        <p>• ذکر مشخصات مهم در عنوان</p>
+        
+        <h4>🔹 تصاویر جذاب و باکیفیت</h4>
+        <p>• حداقل 5 عکس از زوایای مختلف</p>
+        <p>• رزولوشن بالا (حداقل 1000×1000 پیکسل)</p>
+        <p>• نور طبیعی و پس‌زمینه سفید</p>
+        <p>• عکس محصول در حال استفاده</p>
+        
+        <h4>🔹 قیمت‌گذاری روانشناختی</h4>
+        <p><strong>تکنیک قیمت پله‌ای:</strong></p>
+        <p>❌ قیمت قبلی: 2,000,000 تومان</p>
+        <p>✅ قیمت فعلی: 1,899,000 تومان (5% تخفیف)</p>
+        
+        <p><strong>ایجاد احساس فوریت:</strong></p>
+        <p>• "تنها 3 عدد باقی‌مانده!"</p>
+        <p>• "تخفیف ویژه تا پایان هفته"</p>
+        <p>• "فروش فوق‌العاده - موجودی محدود"</p>
+        
+        <h4>🔹 توضیحات محصول حرفه‌ای</h4>
+        <p><strong>ساختار پیشنهادی:</strong></p>
+        <p>1️⃣ معرفی کوتاه محصول</p>
+        <p>2️⃣ ویژگی‌های کلیدی (نقطه‌ای)</p>
+        <p>3️⃣ فواید و کاربردها</p>
+        <p>4️⃣ مشخصات فنی کامل</p>
+        <p>5️⃣ شرایط گارانتی و ارسال</p>
+        
+        <h4>🔹 مدیریت نظرات مشتریان</h4>
+        <p>• پاسخ سریع به سوالات (حداکثر 2 ساعت)</p>
+        <p>• تشکر از نظرات مثبت</p>
+        <p>• حل مسائل نظرات منفی</p>
+        <p>• درخواست نظر از مشتریان راضی</p>
+        
+        <div style="background:#d4edda; padding:15px; border-radius:8px; margin:15px 0">
+          <strong>🎯 نکته کلیدی:</strong> مشتریان 73% بیشتر احتمال دارد از فروشندگانی خرید کنند که به سوالاتشان پاسخ داده‌اند.
+        </div>
+        
+        <h4>🔹 استراتژی‌های تبلیغاتی</h4>
+        <p><strong>تبلیغات داخل پلتفرم:</strong></p>
+        <p>• استفاده از تبلیغات کلیکی</p>
+        <p>• شرکت در فروش‌های ویژه</p>
+        <p>• قرارگیری در بخش پیشنهادات</p>
+        
+        <p><strong>بازاریابی خارجی:</strong></p>
+        <p>• ایجاد کانال تلگرام فروشگاه</p>
+        <p>• استفاده از شبکه‌های اجتماعی</p>
+        <p>• همکاری با اینفلوئنسرها</p>
+        
+        <h4>🔹 خدمات پس از فروش</h4>
+        <p>• پیگیری رضایت مشتری</p>
+        <p>• ارائه راهنمای استفاده</p>
+        <p>• پشتیبانی فنی محصولات</p>
+        <p>• اطلاع‌رسانی محصولات جدید</p>
+      `;
+      break;
+  }
+  
+  contentDiv.innerHTML = content;
+  showSection('trainingContent');
+}
+
+function showSection(id){
+  ['shop','cart','myorders','customer','seller','admin','courier','salesTraining','trainingContent'].forEach(s=>document.getElementById(s).style.display='none');
+  document.getElementById(id).style.display='block';
+  document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+  if(id === 'shop') {
+    document.querySelector('.nav-tab').classList.add('active');
+  }
+  if(['customer','seller','admin','courier'].includes(id)) {
+    state.currentPanel = id;
+  }
+  const ordersIcon = document.getElementById('ordersIcon');
+  const cartIcon = document.getElementById('cartIcon');
+  const balanceDiv = document.getElementById('balanceDiv');
+  const trainingIcon = document.getElementById('trainingIcon');
+  
+  if(state.currentPanel === 'customer') {
+    ordersIcon.style.display = 'block';
+    cartIcon.style.display = 'block';
+    balanceDiv.style.display = 'block';
+    trainingIcon.style.display = 'none';
+  } else if(state.currentPanel === 'seller') {
+    ordersIcon.style.display = 'none';
+    cartIcon.style.display = 'none';
+    balanceDiv.style.display = 'none';
+    trainingIcon.style.display = 'block';
+  } else {
+    ordersIcon.style.display = 'none';
+    cartIcon.style.display = 'none';
+    balanceDiv.style.display = 'none';
+    trainingIcon.style.display = 'none';
+  }
+}
+
+function openPanel(id){
+  showSection(id);
+  state.currentPanel = id;
+  const panelTitle = document.getElementById('panelTitle');
+  const userDisplayName = document.getElementById('userDisplayName');
+  const panelNames = {'customer': 'مشتری','seller': 'فروشنده','admin': 'مدیریت','courier': 'پیک'};
+  const userNames = {'customer': 'پارسا سخن سنج','seller': 'تک استار','admin': 'مریم صفوی','courier': 'احمد نوری'};
+  panelTitle.textContent = `👤 پنل من (${panelNames[id]}) ▾`;
+  userDisplayName.textContent = userNames[id];
+  
+  const ordersIcon = document.getElementById('ordersIcon');
+  const cartIcon = document.getElementById('cartIcon');
+  const balanceDiv = document.getElementById('balanceDiv');
+  const trainingIcon = document.getElementById('trainingIcon');
+  
+  if(id === 'customer') {
+    ordersIcon.style.display = 'block';
+    cartIcon.style.display = 'block';
+    balanceDiv.style.display = 'block';
+    trainingIcon.style.display = 'none';
+  } else if(id === 'seller') {
+    ordersIcon.style.display = 'none';
+    cartIcon.style.display = 'none';
+    balanceDiv.style.display = 'none';
+    trainingIcon.style.display = 'block';
+    updateTrainingNotifications();
+  } else {
+    ordersIcon.style.display = 'none';
+    cartIcon.style.display = 'none';
+    balanceDiv.style.display = 'none';
+    trainingIcon.style.display = 'none';
+  }
+}
+
+document.addEventListener('click',e=>{if(!e.target.closest('.panel-dropdown'))document.getElementById('panelMenu').classList.remove('show')});
+document.querySelector('.panel-dropdown').onclick=function(e){document.getElementById('panelMenu').classList.toggle('show')}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('userBalance').textContent=fmt(state.balance);
+  loadProducts();
+  renderAdmin();
+  renderCourier();
+  renderAdminCourierStatus();
+  updateMyOrders();
+  state.currentPanel = 'customer';
+  document.getElementById('panelTitle').textContent = '👤 پنل من (مشتری) ▾';
+  document.getElementById('ordersIcon').style.display = 'block';
+  document.getElementById('cartIcon').style.display = 'block';
+  document.getElementById('balanceDiv').style.display = 'block';
+  document.getElementById('trainingIcon').style.display = 'none';
+  updateTrainingNotifications();
+  showSection('shop');
+});
+
+function loadProducts(){
+  const grid=document.getElementById('productsGrid');
+  grid.innerHTML='';
+  state.products.forEach(p=>{
+    const d=document.createElement('div');
+    d.className='product-card';
+    
+    // Generate custom star rating
+    const fullStars = Math.floor(p.rating);
+    const hasHalfStar = p.rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    
+    let starsHTML = '';
+    
+    // Full stars
+    for(let i = 0; i < fullStars; i++) {
+      starsHTML += `<span class="star filled">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+        </svg>
+      </span>`;
+    }
+    
+    // Half star
+    if(hasHalfStar) {
+      starsHTML += `<span class="star half-filled">
+        <svg viewBox="0 0 24 24">
+          <defs>
+            <linearGradient id="halfGradient${p.id}">
+              <stop offset="50%" stop-color="#ffc107"/>
+              <stop offset="50%" stop-color="#ddd"/>
+            </linearGradient>
+          </defs>
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#halfGradient${p.id})"/>
+        </svg>
+      </span>`;
+    }
+    
+    // Empty stars
+    for(let i = 0; i < emptyStars; i++) {
+      starsHTML += `<span class="star">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+        </svg>
+      </span>`;
+    }
+    
+    d.innerHTML=`
+      <div class="product-image">${p.img}</div>
+      <div class="product-title">${p.name}</div>
+      <div class="product-price">${fmt(p.price)} تومان</div>
+      <div class="rating-section">
+        <div class="stars">${starsHTML}</div>
+        <div class="rating-text">${p.rating} (${p.reviewCount} نظر)</div>
+      </div>
+      <div class="seller-info">
+        <div><strong>فروشنده:</strong> ${p.seller}</div>
+      </div>
+      <div style="margin-top: auto;">
+        <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+          ${p.trusted ? `
+            <div class="trust-badge verified" style="flex: 1; text-align: center; display: flex; align-items: center; justify-content: center;">✅ فروشنده معتبر</div>
+            <button class='btn btn-warning' onclick='viewProduct(${p.id})' style="flex: 1; padding: 8px; font-size: 0.85rem;">
+              مشاهده جزئیات
+            </button>
+          ` : `
+            <button class='btn btn-warning' onclick='viewProduct(${p.id})' style="width: 100%; padding: 8px; font-size: 0.85rem;">
+              مشاهده جزئیات
+            </button>
+          `}
+        </div>
+        <button class='btn btn-success' onclick='addToCart(${p.id})' style="width: 100%; padding: 10px; font-size: 1.05rem;">
+          🛒 افزودن به سبد خرید
+        </button>
+      </div>
+    `;
+    grid.appendChild(d);
+  });
+}
+
+function viewProduct(id){
+  const p=state.products.find(x=>x.id===id);
+  if(!p)return;
+  
+  // Parse specifications from description
+  const descParts = p.desc.split('\n');
+  const mainDesc = descParts[0];
+  const specs = descParts[1] ? descParts[1].replace('ویژگی‌ها: ', '') : '';
+  
+  const c=document.getElementById('modalContent');
+  c.innerHTML=`
+    <div class="product-details">
+      <div class="product-detail-image">${p.img}</div>
+      
+      <div class="product-info">
+        <h2 style="color:#333;margin:0 0 10px 0;font-size:1.3rem;line-height:1.3">${p.name}</h2>
+        
+        <div class="price-section">
+          <div style="font-size:1.5rem;font-weight:800;color:#27ae60;margin-bottom:2px">${fmt(p.price)} تومان</div>
+          <div style="font-size:0.8rem;color:#666">قیمت نهایی شامل مالیات</div>
+        </div>
+        
+        <div class="seller-badge">
+          <span>فروشنده: ${p.seller}</span>
+          ${p.trusted ? '<span style="margin-right:6px">✅</span>' : ''}
+        </div>
+        
+        <div style="margin:12px 0">
+          <h4 style="color:#333;margin:0 0 6px 0;font-size:1rem">توضیحات محصول:</h4>
+          <p style="color:#666;line-height:1.5;margin:0;font-size:0.9rem">${mainDesc}</p>
+        </div>
+        
+        ${specs ? `
+          <div class="product-specs">
+            <h4 style="color:#333;margin:0 0 10px 0;font-size:1rem">مشخصات فنی:</h4>
+            ${specs.split('، ').map(spec => {
+              const [label, value] = spec.split(': ');
+              return `<div class="spec-item">
+                <span class="spec-label">${label}:</span>
+                <span style="color:#666">${value || label}</span>
+              </div>`;
+            }).join('')}
+          </div>
+        ` : ''}
+        
+        <div style="background:#e8f4f8;padding:12px;border-radius:6px;margin:12px 0">
+          <h4 style="color:#333;margin:0 0 6px 0;font-size:0.95rem">🛡️ تضمین‌های خرید:</h4>
+          <ul style="margin:0;padding-right:16px;color:#666;font-size:0.85rem;line-height:1.4">
+            <li>پرداخت امن با سیستم امانت</li>
+            <li>مرجوعی 14 روزه بدون قید و شرط</li>
+            <li>ضمانت اصالت کالا</li>
+            <li>پشتیبانی 24/7</li>
+          </ul>
+        </div>
+        
+        <div style="display:flex;gap:10px;margin-top:16px">
+          <button class='btn btn-success' onclick='buyNow(${p.id})' style="flex:2;padding:12px;font-size:1rem;border-radius:6px">
+            💳 خرید امن
+          </button>
+          <button class='btn btn-primary' onclick='explainEscrow()' style="flex:1;padding:12px;font-size:0.9rem;border-radius:6px">
+            اطلاعات بیشتر
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+  openModal();
+}
+
+function buyNow(id){
+  const p=state.products.find(x=>x.id===id);
+  if(!p)return;
+  if(state.balance >= p.price) {
+    state.balance -= p.price;
+    document.getElementById('userBalance').textContent = fmt(state.balance);
+    state.myOrders.push({...p, qty:1, returned:false, purchased:true, orderDate: new Date().toLocaleDateString('fa-IR')});
+    updateMyOrders();
+    const c = document.getElementById('modalContent');
+    c.innerHTML = `
+      <h3>✅ خرید موفق</h3>
+      <p>خرید با موفقیت انجام شد!</p>
+      <p><strong>محصول:</strong> ${p.name}</p>
+      <p><strong>مبلغ:</strong> ${fmt(p.price)} تومان</p>
+      <p><strong>موجودی جدید:</strong> ${fmt(state.balance)} تومان</p>
+      <p>محصول به سفارشات شما اضافه شد.</p>
+      <button class='btn btn-primary' onclick='closeModal()'>تایید</button>
+    `;
+    openModal();
+  } else {
+    const c = document.getElementById('modalContent');
+    c.innerHTML = `
+      <h3>❌ خطا</h3>
+      <p>موجودی کافی نیست!</p>
+      <p><strong>موجودی شما:</strong> ${fmt(state.balance)} تومان</p>
+      <p><strong>قیمت محصول:</strong> ${fmt(p.price)} تومان</p>
+      <p><strong>کمبود:</strong> ${fmt(p.price - state.balance)} تومان</p>
+      <button class='btn btn-primary' onclick='closeModal()'>تایید</button>
+    `;
+    openModal();
+  }
+}
+
+function explainEscrow(){
+  const c = document.getElementById('modalContent');
+  c.innerHTML = `
+    <h3>🛡️ پرداخت امن</h3>
+    <p><strong>چگونه کار می‌کند؟</strong></p>
+    <p>• پول شما در امانت نگه داری می‌شود</p>
+    <p>• تا زمان تایید دریافت کالا، پول به فروشنده پرداخت نمی‌شود</p>
+    <p>• در صورت عدم رضایت، امکان مرجوع کالا وجود دارد</p>
+    <p>• امنیت کامل برای خریدار و فروشنده</p>
+    <button class='btn btn-primary' onclick='closeModal()'>متوجه شدم</button>
+  `;
+  openModal();
+}
+
+function addToCart(id){
+  const p=state.products.find(x=>x.id===id);
+  if(!p)return;
+  state.cart.push({...p,qty:1,returned:false,purchased:false});
+  updateCart();
+  
+  // نمایش پاپ‌آپ تایید
+  const c = document.getElementById('modalContent');
+  c.innerHTML = `
+    <h3>✅ افزودن به سبد خرید</h3>
+    <p>محصول با موفقیت به سبد خرید شما اضافه شد!</p>
+    <p><strong>محصول:</strong> ${p.name}</p>
+    <p><strong>قیمت:</strong> ${fmt(p.price)} تومان</p>
+    <p><strong>فروشنده:</strong> ${p.seller}</p>
+    <p>برای مشاهده سبد خرید، روی آیکون سبد کلیک کنید.</p>
+    <button class='btn btn-primary' onclick='closeModal()'>تایید</button>
+  `;
+  openModal();
+}
+
+function updateCart(){
+  const el=document.getElementById('cartItems');
+  if(state.cart.length===0){
+    el.textContent='سبد خرید خالی است.';
+    document.getElementById('cartBadge').style.display='none';
+    document.getElementById('cartBadge').textContent='0';
+    return;
+  }
+  let html='';
+  let total=0;
+  state.cart.forEach((c,i)=>{
+    if(!c.purchased) {
+      total+=c.price*c.qty;
+      html+=`<div class='order-item'><div>${c.name} - ${fmt(c.price)} تومان</div><div><button class='btn btn-success' onclick='purchaseItem(${i})'>پرداخت امن</button><button class='btn btn-secondary' onclick='removeFromCart(${i})'>حذف از سبد</button></div></div>`;
+    }
+  });
+  if(html === '') {
+    html = 'تمام کالاها خریداری شده‌اند.';
+  } else {
+    html+=`<strong>جمع: ${fmt(total)} تومان</strong>`;
+  }
+  el.innerHTML=html;
+  const badge = document.getElementById('cartBadge');
+  const pendingCount = state.cart.filter(c=>!c.purchased).length;
+  if(pendingCount>0){
+    badge.style.display='inline-block';
+    badge.textContent=pendingCount;
+  } else {
+    badge.style.display='none';
+    badge.textContent='0';
+  }
+}
+
+function purchaseItem(i) {
+  const item = state.cart[i];
+  if(!item) return;
+  if(state.balance >= item.price) {
+    state.balance -= item.price;
+    document.getElementById('userBalance').textContent = fmt(state.balance);
+    state.cart[i].purchased = true;
+    state.myOrders.push({...item, orderDate: new Date().toLocaleDateString('fa-IR')});
+    updateCart();
+    updateMyOrders();
+    const c = document.getElementById('modalContent');
+    c.innerHTML = `
+      <h3>✅ خرید با موفقیت انجام شد</h3>
+      <p>محصول <strong>${item.name}</strong> با موفقیت خریداری شد.</p>
+      <p><strong>مبلغ پرداختی:</strong> ${fmt(item.price)} تومان</p>
+      <p><strong>موجودی باقیمانده:</strong> ${fmt(state.balance)} تومان</p>
+      <p>سفارش به لیست سفارش‌های شما اضافه شد.</p>
+      <button class='btn btn-primary' onclick='closeModal()'>تایید</button>
+    `;
+    openModal();
+  } else {
+    const c = document.getElementById('modalContent');
+    c.innerHTML = `
+      <h3>❌ موجودی کافی نیست</h3>
+      <p>موجودی فعلی شما: <strong>${fmt(state.balance)} تومان</strong></p>
+      <p>قیمت محصول: <strong>${fmt(item.price)} تومان</strong></p>
+      <p>کمبود: <strong>${fmt(item.price - state.balance)} تومان</strong></p>
+      <p>لطفاً موجودی را افزایش دهید یا محصول دیگری انتخاب کنید.</p>
+      <button class='btn btn-primary' onclick='closeModal()'>تایید</button>
+    `;
+    openModal();
+  }
+}
+
+function updateMyOrders() {
+  const el = document.getElementById('myOrdersList');
+  if(state.myOrders.length === 0) {
+    el.textContent = 'هنوز سفارشی ندارید.';
+    return;
+  }
+  let html = '';
+  state.myOrders.forEach((order, i) => {
+    html += `<div class='order-item'>
+      <div>${order.name} - ${fmt(order.price)} تومان - ${order.orderDate}</div>
+      ${!order.returned ? `<button class='btn btn-warning' onclick='returnOrder(${i})'>مرجوع کالا</button>` : '<span class="returned">✓ مرجوع شده</span>'}
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+function returnOrder(i) {
+  const returnedItem = state.myOrders[i];
+  if(!returnedItem.returned) {
+    const oldBalance = state.balance;
+    state.balance += returnedItem.price;
+    document.getElementById('userBalance').textContent = fmt(state.balance);
+    state.myOrders[i].returned = true;
+    state.returns[2] = {
+      customer: 'پارسا سخن سنج',
+      shop: returnedItem.seller,
+      productCode: `PS-${returnedItem.id === 1 ? 'A' : 'B'}1244722237834`,
+      status: '✓ مرجوع شده و مبلغ بازگردانده شد'
+    };
+    const c = document.getElementById('modalContent');
+    c.innerHTML = `
+      <h3>✅ مرجوعی موفق</h3>
+      <p>مرجوعی با موفقیت انجام شد!</p>
+      <p><strong>محصول:</strong> ${returnedItem.name}</p>
+      <p><strong>مبلغ بازگشتی:</strong> ${fmt(returnedItem.price)} تومان</p>
+      <p><strong>موجودی قبلی:</strong> ${fmt(oldBalance)} تومان</p>
+      <p><strong>موجودی جدید:</strong> ${fmt(state.balance)} تومان</p>
+      <p>مبلغ به حساب شما بازگردانده شد.</p>
+      <p><small>شما تا 14 روز فرصت مرجوعی دارید.</small></p>
+      <button class='btn btn-primary' onclick='closeModal()'>تایید</button>
+    `;
+    openModal();
+    updateMyOrders();
+    renderReturns();
+  }
+}
+
+function removeFromCart(i) {
+  const item = state.cart[i];
+  const c = document.getElementById('modalContent');
+  c.innerHTML = `
+    <h3>❓ حذف از سبد خرید</h3>
+    <p>آیا مطمئن هستید که می‌خواهید این محصول را از سبد خرید حذف کنید؟</p>
+    <p><strong>محصول:</strong> ${item.name}</p>
+    <p><strong>قیمت:</strong> ${fmt(item.price)} تومان</p>
+    <div style="margin-top: 15px;">
+      <button class='btn btn-warning' onclick='confirmRemoveFromCart(${i})'>بله، حذف کن</button>
+      <button class='btn btn-secondary' onclick='closeModal()'>لغو</button>
+    </div>
+  `;
+  openModal();
+}
+
+function confirmRemoveFromCart(i) {
+  state.cart.splice(i, 1);
+  updateCart();
+  closeModal();
+}
+
+function requestTrustBadge(){
+  document.getElementById('sellerStatus').innerHTML='وضعیت: تایید شده <span class="tick-green">✓</span>';
+  state.sellers[1].status = 'تایید شده ✅';
+  
+  // به‌روزرسانی وضعیت اعتماد محصولات تک استار
+  state.products.forEach(product => {
+    if(product.seller === 'تک استار') {
+      product.trusted = true;
+    }
+  });
+  
+  // بازخوانی محصولات برای نمایش تغییرات
+  loadProducts();
+  renderAdmin();
+  
+  const c = document.getElementById('modalContent');
+  c.innerHTML = `
+    <h3>✅ برچسب اعتماد دریافت شد</h3>
+    <p>پرداخت ضمانت انجام شد!</p>
+    <p>برچسب اعتماد دیجی کالا با موفقیت دریافت گردید.</p>
+    <p><strong>مزایا:</strong></p>
+    <p>• اعتماد بیشتر مشتریان</p>
+    <p>• افزایش فروش</p>
+    <p>• نمایش در نتایج برتر</p>
+    <p>• محصولات شما حالا با برچسب "✅ فروشنده معتبر" نمایش داده می‌شوند</p>
+    <button class='btn btn-primary' onclick='closeModal()'>عالی</button>
+  `;
+  openModal();
+}
+
+function renderAdmin(){
+  const el=document.getElementById('adminSellers');
+  el.innerHTML='';
+  state.sellers.forEach((s,i)=>{
+    let statusHtml = '';
+    if(s.status.includes('✅')) {
+      statusHtml = '<span class="tick-green">✓</span> ' + s.status;
+    } else if(s.status === 'در حال انتظار') {
+      statusHtml = s.status + ' <button class="btn btn-success" onclick="approveSeller('+i+')">تایید</button>';
+    } else {
+      statusHtml = s.status;
+    }
+    el.innerHTML+=`<div class='seller-row'><div>${s.name}</div><div>${statusHtml}</div></div>`;
+  });
+  renderAdminCourierStatus();
+  renderReturns();
+}
+
+function renderAdminCourierStatus(){
+  const el=document.getElementById('adminCourierStatus');
+  let html = '<div class="delivery-table">';
+  html += '<div class="return-header">مشتری</div>';
+  html += '<div class="return-header">نام مغازه</div>';
+  html += '<div class="return-header">کد کالا</div>';
+  html += '<div class="return-header">نام پیک</div>';
+  html += '<div class="return-header">وضعیت</div>';
+  state.couriers.forEach(c=>{
+    html += '<div class="return-cell">'+c.customer+'</div>';
+    html += '<div class="return-cell">'+c.shop+'</div>';
+    html += '<div class="return-cell">'+c.productCode+'</div>';
+    html += '<div class="return-cell">'+c.courierName+'</div>';
+    html += '<div class="return-cell">'+(c.delivered ? '<span class="tick-green">✓</span> ' + c.status : c.status)+'</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function approveSeller(i) {
+  state.sellers[i].status = 'تایید شده ✅';
+  
+  // اگر فروشنده تک استار است، محصولاتش را به‌روزرسانی کن
+  if(state.sellers[i].name === 'تک استار') {
+    state.products.forEach(product => {
+      if(product.seller === 'تک استار') {
+        product.trusted = true;
+      }
+    });
+    loadProducts(); // بازخوانی محصولات
+  }
+  
+  renderAdmin();
+  const c = document.getElementById('modalContent');
+  c.innerHTML = `
+    <h3>✅ فروشنده تایید شد</h3>
+    <p>فروشنده <strong>${state.sellers[i].name}</strong> با موفقیت تایید شد.</p>
+    <p>حالا می‌تواند از برچسب اعتماد استفاده کند.</p>
+    ${state.sellers[i].name === 'تک استار' ? '<p>محصولات این فروشنده حالا با برچسب "✅ فروشنده معتبر" نمایش داده می‌شوند.</p>' : ''}
+    <button class='btn btn-primary' onclick='closeModal()'>تایید</button>
+  `;
+  openModal();
+}
+
+function renderReturns(){
+  const el=document.getElementById('returnStatus');
+  let html = '<div class="return-table">';
+  html += '<div class="return-header">مرجوع کننده</div>';
+  html += '<div class="return-header">نام مغازه</div>';
+  html += '<div class="return-header">کد کالا</div>';
+  html += '<div class="return-header">وضعیت</div>';
+  state.returns.forEach(r=>{
+    html += '<div class="return-cell">'+r.customer+'</div>';
+    html += '<div class="return-cell">'+r.shop+'</div>';
+    html += '<div class="return-cell">'+r.productCode+'</div>';
+    html += '<div class="return-cell">'+r.status+'</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function renderCourier(){
+  const el=document.getElementById('courierList');
+  el.innerHTML='';
+  state.couriers.forEach((c,i)=>{
+    const displayStatus = c.delivered ? c.status : 'در حال انتقال کالا';
+    el.innerHTML+=`<div class='courier-row'><div>${c.order}</div><div>${displayStatus}</div>${c.delivered?'<span class="tick-green">✓</span>':''}${!c.delivered?`<button class='btn btn-primary' onclick='courierConfirm(${i})'>تایید تحویل</button>`:''}</div>`;
+  });
+}
+
+function courierConfirm(i){
+  const courier = state.couriers[i];
+  state.couriers[i].status='تحویل و امضا شده';
+  state.couriers[i].delivered=true;
+  renderCourier();
+  renderAdminCourierStatus();
+  const c = document.getElementById('modalContent');
+  c.innerHTML = `
+    <h3>✅ تحویل تایید شد</h3>
+    <p>تحویل کالا با موفقیت تایید شد.</p>
+    <p><strong>مشتری:</strong> ${courier.customer}</p>
+    <p><strong>محصول:</strong> ${courier.productCode}</p>
+    <p>وضعیت در سیستم به‌روزرسانی شد.</p>
+    <button class='btn btn-primary' onclick='closeModal()'>تایید</button>
+  `;
+  openModal();
+}
+
+function openModal(){document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()})
+</script>
+</body>
+</html>
