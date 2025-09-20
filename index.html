@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DigiPlus - خرید امن</title>
   <style>
-    body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);margin:0;padding:20px;color:#222}
+    body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:linear-gradient(135deg,#800080,#764ba2);margin:0;padding:20px;color:#222}
     .container{max-width:1200px;margin:auto}
     .header{background:#fff;padding:12px 20px;border-radius:10px;display:flex;justify-content:space-between;align-items:center}
     .logo{font-weight:800;color:#2b6cb0;font-size:1.4rem;display:flex;align-items:flex-start;gap:8px}
@@ -16,12 +16,66 @@
     .logo-text{font-family:'Arial',sans-serif;font-weight:600}
     .slogan{font-family:'Tahoma',sans-serif;font-size:0.9rem;color:#666;font-weight:400}
     .user-info{display:flex;gap:10px;align-items:center}
-    .balance{background:#27ae60;color:#fff;padding:6px 10px;border-radius:8px;font-weight:700}
-    .cart-icon, .orders-icon{cursor:pointer;position:relative;background:#667eea;color:#fff;padding:6px 10px;border-radius:8px}
+    .color-picker{
+        cursor:pointer;
+        background:#800080;
+        color:#fff;
+        padding:8px 12px;
+        border-radius:8px;
+        font-size:1.2rem;
+        transition:all 0.25s ease;
+        position:relative;
+    }
+    .color-picker:hover{
+        background:#663399;
+        transform:scale(1.1);
+    }
+    .color-picker-menu{
+        position:absolute;
+        top:100%;
+        right:-20px;
+        background:#fff;
+        padding:12px;
+        border-radius:12px;
+        box-shadow:0 8px 32px rgba(0,0,0,0.3);
+        display:none;
+        z-index:100;
+        margin-top:8px;
+        grid-template-columns:repeat(5,1fr);
+        gap:8px;
+        min-width:200px;
+        max-height:300px;
+        overflow-y:auto;
+        border:2px solid #800080;
+    }
+    .color-picker-menu.show{
+        display:grid;
+    }
+    .color-option{
+        width:32px;
+        height:32px;
+        border-radius:8px;
+        cursor:pointer;
+        transition:all 0.25s ease;
+        border:2px solid #fff;
+        box-shadow:0 2px 4px rgba(0,0,0,0.1);
+        position:relative;
+    }
+    .color-option:hover{
+        transform:scale(1.2);
+        border-color:rgba(255,255,255,0.8);
+        box-shadow:0 4px 12px rgba(0,0,0,0.4);
+        z-index:10;
+    }
+    .color-option:active{
+        transform:scale(0.95);
+    }
+    .balance{background:#800080;color:#fff;padding:6px 10px;border-radius:8px;font-weight:700}
+    .cart-icon, .orders-icon{cursor:pointer;position:relative;background:#800080;color:#fff;padding:6px 10px;border-radius:8px}
     .cart-badge{position:absolute;top:-6px;left:-6px;background:#e74c3c;color:#fff;padding:2px 6px;border-radius:8px;font-size:0.8rem;display:none}
     .nav-tabs{margin:20px 0;display:flex;gap:8px;flex-wrap:wrap}
     .nav-tab{background:#fff;color:#333;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
-    .nav-tab.active{background:#667eea;color:#fff}
+    .nav-tab.active{background:#800080;color:#fff}
     .panel-dropdown{position:relative}
     .dropdown-menu{position:absolute;right:0;top:100%;background:#fff;padding:8px;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.2);display:none;z-index:10}
     .dropdown-menu.show{display:block}
@@ -29,8 +83,31 @@
     .dropdown-item:hover{background:#f1f5f9}
     .content-card{background:#fff;border-radius:10px;padding:16px;margin-bottom:14px}
     .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-    .product-card{background:#f8f9ff;padding:16px;border-radius:12px;display:flex;flex-direction:column;min-height:320px;transition:all 0.25s ease;border:1px solid rgba(102,126,234,0.1)}
-    .product-card:hover{background:#e8f4f8;transform:translateY(-6px);box-shadow:0 10px 30px rgba(102,126,234,0.15);border-color:rgba(102,126,234,0.2)}
+    .product-card{background:linear-gradient(135deg,rgba(128,0,128,0.05),rgba(255,20,147,0.03));padding:16px;border-radius:12px;display:flex;flex-direction:column;min-height:320px;transition:all 0.25s ease;border:1px solid rgba(128,0,128,0.1)}
+    .product-card:hover{background:linear-gradient(135deg,rgba(128,0,128,0.08),rgba(255,20,147,0.05));transform:translateY(-6px);box-shadow:0 10px 30px rgba(128,0,128,0.15);border-color:rgba(128,0,128,0.2)}
+    .product-card.digi-store{
+        border:2px solid currentColor;
+        box-shadow:0 0 20px currentColor;
+        animation:digiGlow 3s ease-in-out infinite alternate;
+        background:linear-gradient(135deg,rgba(138,43,226,0.05),rgba(255,20,147,0.03));
+        --current-theme-color: #800080;
+    }
+    .product-card.digi-store:hover{
+        background:linear-gradient(135deg,rgba(138,43,226,0.12),rgba(255,20,147,0.08));
+        transform:translateY(-8px);
+        box-shadow:0 15px 40px currentColor;
+        border-color:currentColor;
+    }
+    @keyframes digiGlow{
+        from{
+            box-shadow:0 0 20px rgba(138,43,226,0.4);
+            border-color:rgba(138,43,226,0.6);
+        }
+        to{
+            box-shadow:0 0 30px rgba(138,43,226,0.8);
+            border-color:rgba(138,43,226,1);
+        }
+    }
     .product-image{font-size:56px;text-align:center;margin-bottom:14px;padding:10px}
     .product-title{font-weight:700;margin-bottom:12px;color:#333;line-height:1.4;font-size:0.95rem}
     .product-price{font-size:1.2rem;font-weight:800;color:#27ae60;margin-bottom:12px}
@@ -46,13 +123,30 @@
     .trust-badge.verified{background:#27ae60}
     .trust-badge.unverified{background:#e67e22}
     .btn{padding:8px 12px;border:none;border-radius:6px;cursor:pointer;font-weight:700;margin:4px}
-    .btn-primary{background:#667eea;color:#fff}
+    .btn-primary{background:#800080;color:#fff}
     .btn-success{background:#27ae60;color:#fff}
     .btn-warning{background:#e67e22;color:#fff}
     .btn-secondary{background:#6c757d;color:#fff}
     .modal{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:20}
     .modal.show{display:flex}
     .modal-box{background:#fff;padding:24px;border-radius:16px;max-width:520px;width:95%;position:relative;max-height:85vh;overflow-y:auto}
+    .modal-box.digi-product{
+        border:2px solid currentColor;
+        box-shadow:0 0 30px currentColor;
+        animation:digiModalGlow 3s ease-in-out infinite alternate;
+        background:#fff;
+        --current-theme-color: #800080;
+    }
+    @keyframes digiModalGlow{
+        from{
+            box-shadow:0 0 30px rgba(138,43,226,0.4);
+            border-color:rgba(138,43,226,0.6);
+        }
+        to{
+            box-shadow:0 0 45px rgba(138,43,226,0.8);
+            border-color:rgba(138,43,226,1);
+        }
+    }
     .product-details{display:grid;grid-template-columns:auto;gap:0;max-width:100%}
     .product-detail-image{font-size:70px;text-align:center;margin-bottom:16px;padding:16px;background:#f8f9ff;border-radius:12px}
     .product-info{padding:0}
@@ -60,7 +154,7 @@
     .spec-item{margin-bottom:6px;font-size:0.9rem}
     .spec-label{font-weight:600;color:#555;display:inline-block;min-width:90px}
     .price-section{background:#f8f9ff;border:2px solid #27ae60;border-radius:8px;padding:12px;margin:14px 0;text-align:center}
-    .seller-badge{background:#667eea;color:white;padding:6px 12px;border-radius:16px;font-size:0.85rem;margin:10px 0;display:inline-block}
+    .seller-badge{background:#800080;color:white;padding:6px 12px;border-radius:16px;font-size:0.85rem;margin:10px 0;display:inline-block}
     .modal-close{position:absolute;top:8px;left:8px;cursor:pointer;font-weight:800;color:#333}
     .order-item{background:#f8f9ff;padding:10px;border-radius:8px;margin-bottom:8px}
     .timer{font-weight:800;color:#b81d13}
@@ -77,7 +171,7 @@
 
     /* ---------- Team / Footer styles ---------- */
     .team-section {
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        background: linear-gradient(135deg, #800080, #764ba2);
         color: white;
         padding: 40px;
         border-radius: 20px;
@@ -170,14 +264,14 @@
     }
 
     .training-card:hover {
-        background: #e8f4f8;
-        border-color: #667eea;
+        background: #f3e5f5;
+        border-color: #800080;
         transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+        box-shadow: 0 4px 15px rgba(128, 0, 128, 0.15);
     }
 
     .training-card h4 {
-        color: #667eea;
+        color: #800080;
         margin: 0 0 10px 0;
     }
 
@@ -212,17 +306,83 @@
 <div class="container">
   <div class="header">
     <div class="logo">
-      <div>
-        <div class="logo-text">دیجی پلاس</div>
-        <div class="slogan">نماد اعتماد</div>
+      <div style="position: relative; margin-right: 5px;">
+        <!-- Sale Tag -->
+        <div style="position: absolute; top: -3px; right: -10px; background: linear-gradient(45deg, #ff8c42, #ff6b35); color: white; padding: 3px 12px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; transform: rotate(15deg); box-shadow: 0 2px 8px rgba(255, 140, 66, 0.3); z-index: 10;">
+          %
+          <!-- String Effect - Left Thread -->
+          <div style="position: absolute; top: -7px; left: 50%; width: 1px; height: 10px; background: #666; transform: translateX(-50%) rotate(-15deg); z-index: -1;"></div>
+        </div>
+        <div class="logo-text" style="margin-right: 35px;">دیجی پلاس</div>
+        <div class="slogan" style="margin-right: 35px;">نماد اعتماد</div>
       </div>
       <div class="logo-icon">+</div>
     </div>
     <div class="user-info">
-      <div class="balance" id="balanceDiv" style="display:none">موجودی: <span id="userBalance">0</span> تومان</div>
-      <div class="cart-icon" id="trainingIcon" onclick="showSalesTrainingMenu()" style="display:none;margin-left:15px">📚 آموزش ترفندها و تکنیک های فروش<span class="cart-badge" id="trainingBadge">0</span></div>
+      <div class="cart-icon" id="trainingIcon" onclick="showSalesTrainingMenu()" style="display:none;margin-left:15px">📚 آموزش ترفندها و تکنیک‌های فروش<span class="cart-badge" id="trainingBadge">0</span></div>
       <div class="orders-icon" id="ordersIcon" onclick="showSection('myorders')" style="display:none">📋 سفارشات من</div>
       <div class="cart-icon" id="cartIcon" onclick="showSection('cart')" style="display:none">🛒 سبد خرید<span class="cart-badge" id="cartBadge">0</span></div>
+      <div class="balance" id="balanceDiv" style="display:none">موجودی: <span id="userBalance">0</span> تومان</div>
+      <div class="color-picker" onclick="toggleColorPicker()" style="position: relative;">
+        🎨
+        <div class="color-picker-menu" id="colorPickerMenu">
+          <!-- Row 1: Purples & Violets -->
+          <div class="color-option" onclick="changeThemeColor('#800080')" style="background:#800080" title="Purple"></div>
+          <div class="color-option" onclick="changeThemeColor('#663399')" style="background:#663399" title="RebeccaPurple"></div>
+          <div class="color-option" onclick="changeThemeColor('#4B0082')" style="background:#4B0082" title="Indigo"></div>
+          <div class="color-option" onclick="changeThemeColor('#8A2BE2')" style="background:#8A2BE2" title="BlueViolet"></div>
+          <div class="color-option" onclick="changeThemeColor('#9932CC')" style="background:#9932CC" title="DarkOrchid"></div>
+          
+          <!-- Row 2: Pinks & Magentas -->
+          <div class="color-option" onclick="changeThemeColor('#FF1493')" style="background:#FF1493" title="DeepPink"></div>
+          <div class="color-option" onclick="changeThemeColor('#C71585')" style="background:#C71585" title="MediumVioletRed"></div>
+          <div class="color-option" onclick="changeThemeColor('#DC143C')" style="background:#DC143C" title="Crimson"></div>
+          <div class="color-option" onclick="changeThemeColor('#FF69B4')" style="background:#FF69B4" title="HotPink"></div>
+          <div class="color-option" onclick="changeThemeColor('#FF6347')" style="background:#FF6347" title="Tomato"></div>
+          
+          <!-- Row 3: Reds -->
+          <div class="color-option" onclick="changeThemeColor('#8B0000')" style="background:#8B0000" title="DarkRed"></div>
+          <div class="color-option" onclick="changeThemeColor('#800000')" style="background:#800000" title="Maroon"></div>
+          <div class="color-option" onclick="changeThemeColor('#B22222')" style="background:#B22222" title="FireBrick"></div>
+          <div class="color-option" onclick="changeThemeColor('#CD5C5C')" style="background:#CD5C5C" title="IndianRed"></div>
+          <div class="color-option" onclick="changeThemeColor('#A0522D')" style="background:#A0522D" title="Sienna"></div>
+          
+          <!-- Row 4: Blues -->
+          <div class="color-option" onclick="changeThemeColor('#191970')" style="background:#191970" title="MidnightBlue"></div>
+          <div class="color-option" onclick="changeThemeColor('#000080')" style="background:#000080" title="Navy"></div>
+          <div class="color-option" onclick="changeThemeColor('#0000CD')" style="background:#0000CD" title="MediumBlue"></div>
+          <div class="color-option" onclick="changeThemeColor('#4169E1')" style="background:#4169E1" title="RoyalBlue"></div>
+          <div class="color-option" onclick="changeThemeColor('#1E90FF')" style="background:#1E90FF" title="DodgerBlue"></div>
+          
+          <!-- Row 5: Teals & Cyans -->
+          <div class="color-option" onclick="changeThemeColor('#008B8B')" style="background:#008B8B" title="DarkCyan"></div>
+          <div class="color-option" onclick="changeThemeColor('#20B2AA')" style="background:#20B2AA" title="LightSeaGreen"></div>
+          <div class="color-option" onclick="changeThemeColor('#008080')" style="background:#008080" title="Teal"></div>
+          <div class="color-option" onclick="changeThemeColor('#5F9EA0')" style="background:#5F9EA0" title="CadetBlue"></div>
+          <div class="color-option" onclick="changeThemeColor('#48D1CC')" style="background:#48D1CC" title="MediumTurquoise"></div>
+          
+          <!-- Row 6: Greens -->
+          <div class="color-option" onclick="changeThemeColor('#006400')" style="background:#006400" title="DarkGreen"></div>
+          <div class="color-option" onclick="changeThemeColor('#228B22')" style="background:#228B22" title="ForestGreen"></div>
+          <div class="color-option" onclick="changeThemeColor('#32CD32')" style="background:#32CD32" title="LimeGreen"></div>
+          <div class="color-option" onclick="changeThemeColor('#9ACD32')" style="background:#9ACD32" title="YellowGreen"></div>
+          <div class="color-option" onclick="changeThemeColor('#8FBC8F')" style="background:#8FBC8F" title="DarkSeaGreen"></div>
+          
+          <!-- Row 7: Yellows & Oranges -->
+          <div class="color-option" onclick="changeThemeColor('#FFD700')" style="background:#FFD700" title="Gold"></div>
+          <div class="color-option" onclick="changeThemeColor('#FFA500')" style="background:#FFA500" title="Orange"></div>
+          <div class="color-option" onclick="changeThemeColor('#FF8C00')" style="background:#FF8C00" title="DarkOrange"></div>
+          <div class="color-option" onclick="changeThemeColor('#FF7F50')" style="background:#FF7F50" title="Coral"></div>
+          <div class="color-option" onclick="changeThemeColor('#D2691E')" style="background:#D2691E" title="Chocolate"></div>
+          
+          <!-- Row 8: Grays & Browns -->
+          <div class="color-option" onclick="changeThemeColor('#2F4F4F')" style="background:#2F4F4F" title="DarkSlateGray"></div>
+          <div class="color-option" onclick="changeThemeColor('#696969')" style="background:#696969" title="DimGray"></div>
+          <div class="color-option" onclick="changeThemeColor('#708090')" style="background:#708090" title="SlateGray"></div>
+          <div class="color-option" onclick="changeThemeColor('#8B4513')" style="background:#8B4513" title="SaddleBrown"></div>
+          <div class="color-option" onclick="changeThemeColor('#556B2F')" style="background:#556B2F" title="DarkOliveGreen"></div>
+        </div>
+      </div>
       <div id="username">
         <span id="userDisplayName">پارسا سخن سنج</span>
       </div>
@@ -312,7 +472,7 @@
             <div class="feature-card" role="listitem">
                 <div>
                   <div class="feature-title">
-                      <span>📦✍️</span>
+                      <span>📦✉️</span>
                       <span>تحویل امن با امضا</span>
                   </div>
                   <div class="feature-description">
@@ -343,7 +503,7 @@
                 <div>
                   <div class="feature-title">
                       <span>🎓</span>
-                      <span>آموزش ترفندها و تکنیک های فروش به فروشندگان</span>
+                      <span>آموزش ترفندها و تکنیک‌های فروش به فروشندگان</span>
                   </div>
                   <div class="feature-description">
                       راهنمای جامع فروشندگان شامل آموزش اخذ برچسب‌های اعتماد، تکنیک‌های بهینه‌سازی محصول و استراتژی‌های افزایش فروش.
@@ -353,13 +513,31 @@
                 </div>
             </div>
 
-            <div class="team-credit-card" role="listitem">
+            <div class="feature-card" role="listitem">
+                <div>
+                  <div class="feature-title">
+                      <span>⭐</span>
+                      <span>فروشگاه‌های انحصاری دیجی پلاس</span>
+                  </div>
+                  <div class="feature-description">
+                      مجموعه منتخبی از فروشگاه‌های متخصص در حوزه‌های مختلف که تحت نظارت مستقیم دیجی پلاس عمل می‌کنند و بالاترین سطح کیفیت و اعتماد را ارائه می‌دهند.
+                      <br><br>
+                      <strong>دیجی-موبایل:</strong> متخصص در فروش گوشی‌های هوشمند و لوازم جانبی
+                      <br><strong>دیجی-لپتاپ:</strong> متخصص در فروش لپتاپ و کامپیوتر
+                      <br><strong>دیجی-گیمینگ:</strong> متخصص در کنسول‌ها و تجهیزات بازی
+                      <br><br>
+                      این فروشگاه‌ها با نشان "⭐ دیجی استور" شناسایی می‌شوند و گارانتی کیفیت صد درصدی دارند.
+                  </div>
+                </div>
+            </div>
+
+            <div class="feature-card" role="listitem">
                 <div>
                   <div class="feature-title">
                       <span>🚀</span>
                       <span>طرح توسط گروه استارتاپی Pal Labs</span>
                   </div>
-                  <div class="feature-description" style="margin-top: 15px;">
+                  <div class="feature-description">
                       محمد سخن سنج ، فاطمه صباغ کاشانی
                       <br><br>
                       این MVP برای حل مشکل عدم اعتماد به فروشندگان ناشناس در پلتفرم‌های تجارت الکترونیک طراحی شده است.
@@ -403,12 +581,16 @@
     <p><strong>شماره تماس:</strong> 031300000</p>
     <div class="seller-status" id="sellerStatus">وضعیت: در انتظار درخواست</div>
     <button class="btn btn-success" onclick="requestTrustBadge()">🛡️ درخواست برچسب اعتماد دیجی کالا</button>
+    <div class="seller-status" id="digiSubStatus" style="margin-top:15px">وضعیت زیرمجموعه: در انتظار درخواست</div>
+    <button class="btn btn-primary" onclick="requestDigiSub()" style="margin-top:10px">🏢 درخواست زیرمجموعه دیجی پلاس</button>
   </div>
 
   <div id="admin" class="content-card" style="display:none">
     <h3>پنل مدیریت</h3>
     <h4>وضعیت تیک اعتماد فروشنده‌ها</h4>
     <div class="admin-sellers" id="adminSellers"></div>
+    <h4>وضعیت زیرمجموعه دیجی پلاس</h4>
+    <div class="admin-sellers" id="adminDigiSubs"></div>
     <h4>وضعیت دریافتی کالا</h4>
     <div class="courier-list" id="adminCourierStatus"></div>
     <h4>وضعیت مرجوعی‌ها</h4>
@@ -463,6 +645,8 @@
 
 <script>
 /* ---------- JavaScript ---------- */
+let currentThemeColor = '#800080'; // Default Purple
+
 const state={
   balance:50000000,
   currentPanel: 'shop',
@@ -471,22 +655,26 @@ const state={
     shaparak: true,
     salesTechniques: true
   },
+  digiSubRequest: false,
   products:[
-    {id:1,name:'گوشی Samsung Galaxy S24 Ultra',price:32500000,seller:'موبایل پارس',trusted:true,img:'📱',desc:'گوشی پرچمدار سامسونگ با دوربین 200 مگاپیکسلی و پردازنده Snapdragon 8 Gen 3.\nویژگی‌ها: صفحه نمایش 6.8 اینچ، حافظه 512GB، باتری 5000mAh، وزن 220 گرم، سال ساخت 2024، کشور تولید: کره جنوبی',rating:4.3,reviewCount:124},
-    {id:2,name:'لپتاپ Asus ROG Gaming',price:45000000,seller:'تک استار',trusted:false,img:'💻',desc:'لپتاپ گیمینگ قدرتمند با کارت گرافیک RTX 4070 و پردازنده Intel Core i7.\nویژگی‌ها: رم 16GB، پردازنده i7، نمایشگر 240Hz، وزن 2.3 کیلوگرم، سال ساخت 2023، کشور تولید: تایوان',rating:4.7,reviewCount:89},
-    {id:3,name:'هدفون Apple AirPods Pro',price:8500000,seller:'صوتی دیجیتال',trusted:true,img:'🎧',desc:'هدفون بی‌سیم با قابلیت حذف نویز فعال و کیفیت صدای استودیویی.\nویژگی‌ها: باتری 30 ساعته، بلوتوث 5.2، درایور 30mm، وزن 250 گرم، حذف نویز فعال',rating:4.4,reviewCount:203},
-    {id:4,name:'ساعت هوشمند Apple Watch Series 9',price:15000000,seller:'گجت پلاس',trusted:true,img:'⌚',desc:'ساعت هوشمند پیشرفته با سنسورهای سلامتی و GPS دقیق.\nویژگی‌ها: نمایشگر Always-On، GPS، ضد آب، باتری 18 ساعته، سنسور اکسیژن خون',rating:4.6,reviewCount:156},
-    {id:5,name:'تبلت iPad Air M2',price:28000000,seller:'تبلت سرای اپل',trusted:false,img:'📱',desc:'تبلت قدرتمند اپل با پردازنده M2 و صفحه نمایش Liquid Retina.\nویژگی‌ها: صفحه 10.9 اینچ، حافظه 256GB، قلم Apple Pencil، وزن 461 گرم، پردازنده M2',rating:4.5,reviewCount:87},
-    {id:6,name:'دوربین Canon EOS R5',price:95000000,seller:'عکاسی پرو',trusted:true,img:'📷',desc:'دوربین حرفه‌ای کانن با سنسور فول فریم 45 مگاپیکسلی.\nویژگی‌ها: 45 مگاپیکسل، فیلمبرداری 8K، لرزشگیر، وزن 738 گرم، سنسور فول فریم',rating:4.8,reviewCount:45},
-    {id:7,name:'کنسول PlayStation 5',price:22000000,seller:'گیم سنتر',trusted:true,img:'🎮',desc:'کنسول بازی نسل جدید سونی با پردازنده AMD Zen 2.\nویژگی‌ها: پردازنده 8 هسته‌ای، کارت گرافیک RDNA 2، حافظه 825GB SSD، پشتیبانی از 4K، Ray Tracing',rating:4.7,reviewCount:312},
+    {id:1,name:'گوشی Samsung Galaxy S24 Ultra',price:32500000,seller:'دیجی-موبایل',trusted:true,img:'📱',desc:'گوشی پرچمدار سامسونگ با دوربین 200 مگاپیکسلی و پردازنده Snapdragon 8 Gen 3.\nویژگی‌ها: صفحه نمایش 6.8 اینچ، حافظه 512GB، باتری 5000mAh، وزن 220 گرم، سال ساخت 2024، کشور تولید: کره جنوبی',rating:4.8,reviewCount:324},
+    {id:2,name:'لپتاپ Asus ROG Gaming',price:45000000,seller:'دیجی-لپتاپ',trusted:true,img:'💻',desc:'لپتاپ گیمینگ قدرتمند با کارت گرافیک RTX 4070 و پردازنده Intel Core i7.\nویژگی‌ها: رم 16GB، پردازنده i7، نمایشگر 240Hz، وزن 2.3 کیلوگرم، سال ساخت 2023، کشور تولید: تایوان',rating:4.9,reviewCount:189},
+    {id:3,name:'کنسول PlayStation 5 Pro',price:22000000,seller:'دیجی-گیمینگ',trusted:true,img:'🎮',desc:'کنسول بازی نسل جدید سونی با پردازنده AMD Zen 2 و قابلیت Ray Tracing پیشرفته.\nویژگی‌ها: پردازنده 8 هسته‌ای، کارت گرافیک RDNA 2، حافظه 825GB SSD، پشتیبانی از 4K، Ray Tracing، HDR',rating:4.9,reviewCount:412},
+    {id:4,name:'هدفون Apple AirPods Pro',price:8500000,seller:'صوتی دیجیتال',trusted:true,img:'🎧',desc:'هدفون بی‌سیم با قابلیت حذف نویز فعال و کیفیت صدای استودیویی.\nویژگی‌ها: باتری 30 ساعته، بلوتوث 5.2، درایور 30mm، وزن 250 گرم، حذف نویز فعال',rating:4.4,reviewCount:203},
+    {id:5,name:'ساعت هوشمند Apple Watch Series 9',price:15000000,seller:'گجت پلاس',trusted:true,img:'⌚',desc:'ساعت هوشمند پیشرفته با سنسورهای سلامتی و GPS دقیق.\nویژگی‌ها: نمایشگر Always-On، GPS، ضد آب، باتری 18 ساعته، سنسور اکسیژن خون',rating:4.6,reviewCount:156},
+    {id:6,name:'تبلت iPad Air M2',price:28000000,seller:'تک استار',trusted:false,img:'📱',desc:'تبلت قدرتمند اپل با پردازنده M2 و صفحه نمایش Liquid Retina.\nویژگی‌ها: صفحه 10.9 اینچ، حافظه 256GB، قلم Apple Pencil، وزن 461 گرم، پردازنده M2',rating:4.5,reviewCount:87},
+    {id:7,name:'دوربین Canon EOS R5',price:95000000,seller:'عکاسی پرو',trusted:true,img:'📷',desc:'دوربین حرفه‌ای کانن با سنسور فول فریم 45 مگاپیکسلی.\nویژگی‌ها: 45 مگاپیکسل، فیلم‌برداری 8K، لرزشگیر، وزن 738 گرم، سنسور فول فریم',rating:4.8,reviewCount:45},
     {id:8,name:'ماوس Logitech MX Master 3S',price:3200000,seller:'کامپیوتر مرکزی',trusted:false,img:'🖱️',desc:'ماوس بی‌سیم حرفه‌ای با سنسور دقیق و باتری طولانی مدت.\nویژگی‌ها: سنسور 8000 DPI، باتری 70 روزه، اتصال بلوتوث و USB، طراحی ارگونومیک، مقاوم در برابر آب',rating:4.5,reviewCount:198}
   ],
   cart:[],
   myOrders:[],
   orders:[],
   sellers:[
-    {name:'موبایل پارس',trusted:false,status:'در حال انتظار'},
-    {name:'تک استار',trusted:true,status:'(متاثر از Real-time interaction به عنوان فروشنده در این MVP)'}
+    {name:'موبایل پارس',trusted:false,status:'در حال انتظار',digiSub:false,digiSubStatus:'در حال انتظار'},
+    {name:'تک استار',trusted:false,status:'(متاثر از Real-time interaction به عنوان فروشنده در این MVP)',digiSub:false,digiSubStatus:'(متاثر از Real-time interaction به عنوان فروشنده در این MVP)'},
+    {name:'دیجی-لپتاپ',trusted:true,status:'تایید شده ✅',digiSub:true,digiSubStatus:'زیرمجموعه دیجی پلاس ✅'},
+    {name:'دیجی-موبایل',trusted:true,status:'تایید شده ✅',digiSub:true,digiSubStatus:'زیرمجموعه دیجی پلاس ✅'},
+    {name:'دیجی-گیمینگ',trusted:true,status:'تایید شده ✅',digiSub:true,digiSubStatus:'زیرمجموعه دیجی پلاس ✅'}
   ],
   couriers:[
     {order:'سفارش 1 - فرشاد کریمی',status:'تحویل و امضا شده',delivered:true,customer:'فرشاد کریمی',shop:'موبایل پارس',productCode:'PS-A1244722237834',courierName:'رضا احمدی'},
@@ -494,7 +682,7 @@ const state={
   ],
   returns:[
     {customer:'زهرا مهرابی',shop:'موبایل پارس',productCode:'PS-A1244722237834',status:'✓ مرجوع شده'},
-    {customer:'علی رضایی',shop:'تک استار',productCode:'PS-B1244722237834',status:'⏳ در انتظار دریافت مبلغ کالای مرجوعی'},
+    {customer:'علی رضایی',shop:'تک استار',productCode:'PS-B1244722237834',status:'⏹ در انتظار دریافت مبلغ کالای مرجوعی'},
     {customer:'پارسا سخن سنج',shop:'',productCode:'',status:'(متاثر از Real-time interaction به عنوان مشتری در این MVP)'}
   ]
 };
@@ -510,6 +698,149 @@ function updateTrainingNotifications() {
     badge.style.display = 'none';
     badge.textContent = '0';
   }
+}
+
+function toggleColorPicker() {
+  const menu = document.getElementById('colorPickerMenu');
+  menu.classList.toggle('show');
+}
+
+function changeThemeColor(color) {
+  currentThemeColor = color;
+  
+  // Apply new color theme
+  applyColorTheme(color);
+  
+  // Close color picker
+  const menu = document.getElementById('colorPickerMenu');
+  menu.classList.remove('show');
+}
+
+function applyColorTheme(color) {
+  // Convert hex to rgba for transparency effects
+  const hexToRgba = (hex, alpha) => {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  };
+  
+  // Update body background
+  document.body.style.background = `linear-gradient(135deg, ${color}, #764ba2)`;
+  
+  // Update active tab
+  const activeTab = document.querySelector('.nav-tab.active');
+  if(activeTab) activeTab.style.background = color;
+  
+  // Update cart/orders icons
+  document.querySelectorAll('.cart-icon, .orders-icon').forEach(el => {
+    el.style.background = color;
+  });
+  
+  // Update primary buttons
+  document.querySelectorAll('.btn-primary').forEach(el => {
+    el.style.background = color;
+  });
+  
+  // Update seller badges
+  document.querySelectorAll('.seller-badge').forEach(el => {
+    el.style.background = color;
+  });
+  
+  // Update balance (موجودی)
+  const balanceDiv = document.querySelector('.balance');
+  if(balanceDiv) balanceDiv.style.background = color;
+  
+  // Update team section
+  const teamSection = document.querySelector('.team-section');
+  if(teamSection) teamSection.style.background = `linear-gradient(135deg, ${color}, #764ba2)`;
+  
+  // Update color picker button
+  const colorPicker = document.querySelector('.color-picker');
+  if(colorPicker) colorPicker.style.background = color;
+  
+  // Update training cards
+  document.querySelectorAll('.training-card h4').forEach(el => {
+    el.style.color = color;
+  });
+  
+  // Update product cards
+  document.querySelectorAll('.product-card').forEach(el => {
+    el.style.background = `linear-gradient(135deg, ${hexToRgba(color, 0.05)}, rgba(255,20,147,0.03))`;
+    el.style.borderColor = hexToRgba(color, 0.1);
+  });
+  
+  // Update feature cards (footer)
+  document.querySelectorAll('.feature-card').forEach(el => {
+    el.style.borderColor = hexToRgba(color, 0.4);
+    el.style.boxShadow = `0 0 20px ${hexToRgba(color, 0.3)}`;
+  });
+  
+  // Update digi store cards with dynamic neon colors
+  document.querySelectorAll('.product-card.digi-store').forEach(el => {
+    el.style.borderColor = color;
+    el.style.boxShadow = `0 0 20px ${hexToRgba(color, 0.4)}`;
+    
+    // Create new keyframes for animation
+    const styleSheet = document.styleSheets[0];
+    const animationName = `digiGlow-${color.replace('#', '')}`;
+    
+    // Remove old animation rule if exists
+    for (let i = styleSheet.cssRules.length - 1; i >= 0; i--) {
+      if (styleSheet.cssRules[i].name && styleSheet.cssRules[i].name.startsWith('digiGlow-')) {
+        styleSheet.deleteRule(i);
+      }
+    }
+    
+    // Add new animation rule
+    const keyframes = `@keyframes ${animationName} {
+      from { box-shadow: 0 0 20px ${hexToRgba(color, 0.4)}; border-color: ${hexToRgba(color, 0.6)}; }
+      to { box-shadow: 0 0 30px ${hexToRgba(color, 0.8)}; border-color: ${color}; }
+    }`;
+    styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+    
+    // Apply new animation
+    el.style.animation = `${animationName} 3s ease-in-out infinite alternate`;
+  });
+  
+  // Update digi modal with dynamic neon colors (if exists)
+  const digiModal = document.querySelector('.modal-box.digi-product');
+  if(digiModal) {
+    digiModal.style.borderColor = color;
+    digiModal.style.boxShadow = `0 0 30px ${hexToRgba(color, 0.6)}`;
+    
+    // Create new keyframes for modal animation
+    const styleSheet = document.styleSheets[0];
+    const modalAnimationName = `digiModalGlow-${color.replace('#', '')}`;
+    
+    // Remove old modal animation rule if exists
+    for (let i = styleSheet.cssRules.length - 1; i >= 0; i--) {
+      if (styleSheet.cssRules[i].name && styleSheet.cssRules[i].name.startsWith('digiModalGlow-')) {
+        styleSheet.deleteRule(i);
+      }
+    }
+    
+    // Add new modal animation rule
+    const modalKeyframes = `@keyframes ${modalAnimationName} {
+      from { box-shadow: 0 0 30px ${hexToRgba(color, 0.4)}; border-color: ${hexToRgba(color, 0.6)}; }
+      to { box-shadow: 0 0 45px ${hexToRgba(color, 0.8)}; border-color: ${color}; }
+    }`;
+    styleSheet.insertRule(modalKeyframes, styleSheet.cssRules.length);
+    
+    // Apply new modal animation
+    digiModal.style.animation = `${modalAnimationName} 3s ease-in-out infinite alternate`;
+  }
+  
+  // Update digi product prices and seller names
+  document.querySelectorAll('.product-card').forEach((card, index) => {
+    const product = state.products[index];
+    if(product && product.seller.startsWith('دیجی-')) {
+      const priceEl = card.querySelector('.product-price');
+      const sellerEls = card.querySelectorAll('.seller-info strong, .seller-info span');
+      if(priceEl) priceEl.style.color = color;
+      sellerEls.forEach(el => el.style.color = color);
+    }
+  });
 }
 
 function fmt(n){return Number(n).toLocaleString('fa-IR')}
@@ -747,7 +1078,10 @@ function openPanel(id){
   }
 }
 
-document.addEventListener('click',e=>{if(!e.target.closest('.panel-dropdown'))document.getElementById('panelMenu').classList.remove('show')});
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.panel-dropdown'))document.getElementById('panelMenu').classList.remove('show');
+  if(!e.target.closest('.color-picker'))document.getElementById('colorPickerMenu').classList.remove('show');
+});
 document.querySelector('.panel-dropdown').onclick=function(e){document.getElementById('panelMenu').classList.toggle('show')}
 
 document.addEventListener('DOMContentLoaded',()=>{
@@ -817,18 +1151,20 @@ function loadProducts(){
     d.innerHTML=`
       <div class="product-image">${p.img}</div>
       <div class="product-title">${p.name}</div>
-      <div class="product-price">${fmt(p.price)} تومان</div>
+      <div class="product-price" style="${p.seller.startsWith('دیجی-') ? 'color:#800080;font-weight:900;' : ''}">${fmt(p.price)} تومان</div>
       <div class="rating-section">
         <div class="stars">${starsHTML}</div>
         <div class="rating-text">${p.rating} (${p.reviewCount} نظر)</div>
       </div>
       <div class="seller-info">
-        <div><strong>فروشنده:</strong> ${p.seller}</div>
+        <div><strong ${p.seller.startsWith('دیجی-') ? 'style="color:#800080;"' : ''}>فروشنده:</strong> <span ${p.seller.startsWith('دیجی-') ? 'style="color:#800080;font-weight:700;"' : ''}>${p.seller}</span></div>
       </div>
       <div style="margin-top: auto;">
         <div style="display: flex; gap: 8px; margin-bottom: 10px;">
           ${p.trusted ? `
-            <div class="trust-badge verified" style="flex: 1; text-align: center; display: flex; align-items: center; justify-content: center;">✅ فروشنده معتبر</div>
+            <div class="trust-badge verified" style="flex: 1; text-align: center; display: flex; align-items: center; justify-content: center;">
+              ${p.seller.startsWith('دیجی-') ? '⭐ دیجی استور' : '✅ فروشنده معتبر'}
+            </div>
             <button class='btn btn-warning' onclick='viewProduct(${p.id})' style="flex: 1; padding: 8px; font-size: 0.85rem;">
               مشاهده جزئیات
             </button>
@@ -843,6 +1179,11 @@ function loadProducts(){
         </button>
       </div>
     `;
+    
+    // Add digi-store class for special styling
+    if(p.seller.startsWith('دیجی-')) {
+      d.classList.add('digi-store');
+    }
     grid.appendChild(d);
   });
 }
@@ -856,6 +1197,14 @@ function viewProduct(id){
   const mainDesc = descParts[0];
   const specs = descParts[1] ? descParts[1].replace('ویژگی‌ها: ', '') : '';
   
+  // Helper function for hex to rgba
+  const hexToRgba = (hex, alpha) => {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  };
+  
   const c=document.getElementById('modalContent');
   c.innerHTML=`
     <div class="product-details">
@@ -864,7 +1213,7 @@ function viewProduct(id){
       <div class="product-info">
         <h2 style="color:#333;margin:0 0 10px 0;font-size:1.3rem;line-height:1.3">${p.name}</h2>
         
-        <div class="price-section">
+        <div class="price-section" style="border-color:#800080;">
           <div style="font-size:1.5rem;font-weight:800;color:#27ae60;margin-bottom:2px">${fmt(p.price)} تومان</div>
           <div style="font-size:0.8rem;color:#666">قیمت نهایی شامل مالیات</div>
         </div>
@@ -913,6 +1262,23 @@ function viewProduct(id){
       </div>
     </div>
   `;
+  
+  // Add digi effect to modal if it's a digi product
+  const modalBox = document.querySelector('.modal-box');
+  if(p.seller.startsWith('دیجی-')) {
+    modalBox.classList.add('digi-product');
+    
+    // Apply current theme color to modal
+    modalBox.style.borderColor = currentThemeColor;
+    modalBox.style.boxShadow = `0 0 30px ${hexToRgba(currentThemeColor, 0.6)}`;
+    
+    // Apply dynamic animation
+    const modalAnimationName = `digiModalGlow-${currentThemeColor.replace('#', '')}`;
+    modalBox.style.animation = `${modalAnimationName} 3s ease-in-out infinite alternate`;
+  } else {
+    modalBox.classList.remove('digi-product');
+  }
+  
   openModal();
 }
 
@@ -922,6 +1288,10 @@ function buyNow(id){
   if(state.balance >= p.price) {
     state.balance -= p.price;
     document.getElementById('userBalance').textContent = fmt(state.balance);
+    // Apply current theme color to balance after update
+    const balanceDiv = document.querySelector('.balance');
+    if(balanceDiv) balanceDiv.style.background = currentThemeColor;
+    
     state.myOrders.push({...p, qty:1, returned:false, purchased:true, orderDate: new Date().toLocaleDateString('fa-IR')});
     updateMyOrders();
     const c = document.getElementById('modalContent');
@@ -1022,6 +1392,10 @@ function purchaseItem(i) {
   if(state.balance >= item.price) {
     state.balance -= item.price;
     document.getElementById('userBalance').textContent = fmt(state.balance);
+    // Apply current theme color to balance after update
+    const balanceDiv = document.querySelector('.balance');
+    if(balanceDiv) balanceDiv.style.background = currentThemeColor;
+    
     state.cart[i].purchased = true;
     state.myOrders.push({...item, orderDate: new Date().toLocaleDateString('fa-IR')});
     updateCart();
@@ -1072,6 +1446,10 @@ function returnOrder(i) {
     const oldBalance = state.balance;
     state.balance += returnedItem.price;
     document.getElementById('userBalance').textContent = fmt(state.balance);
+    // Apply current theme color to balance after update
+    const balanceDiv = document.querySelector('.balance');
+    if(balanceDiv) balanceDiv.style.background = currentThemeColor;
+    
     state.myOrders[i].returned = true;
     state.returns[2] = {
       customer: 'پارسا سخن سنج',
@@ -1119,32 +1497,56 @@ function confirmRemoveFromCart(i) {
   closeModal();
 }
 
-function requestTrustBadge(){
-  document.getElementById('sellerStatus').innerHTML='وضعیت: تایید شده <span class="tick-green">✓</span>';
-  state.sellers[1].status = 'تایید شده ✅';
+function requestDigiSub(){
+  // به‌روزرسانی وضعیت در state
+  const sellerIndex = state.sellers.findIndex(s => s.name === 'تک استار');
+  if(sellerIndex !== -1) {
+    state.sellers[sellerIndex].digiSubStatus = 'در حال انتظار';
+  }
   
-  // به‌روزرسانی وضعیت اعتماد محصولات تک استار
-  state.products.forEach(product => {
-    if(product.seller === 'تک استار') {
-      product.trusted = true;
-    }
-  });
+  document.getElementById('digiSubStatus').innerHTML='وضعیت زیرمجموعه: لطفاً منتظر کارشناسان ما بمانید... <span style="color:#ff8c00;">⏳</span>';
   
-  // بازخوانی محصولات برای نمایش تغییرات
-  loadProducts();
+  // به‌روزرسانی پنل مدیریت
   renderAdmin();
   
   const c = document.getElementById('modalContent');
   c.innerHTML = `
-    <h3>✅ برچسب اعتماد دریافت شد</h3>
-    <p>پرداخت ضمانت انجام شد!</p>
-    <p>برچسب اعتماد دیجی کالا با موفقیت دریافت گردید.</p>
-    <p><strong>مزایا:</strong></p>
-    <p>• اعتماد بیشتر مشتریان</p>
-    <p>• افزایش فروش</p>
-    <p>• نمایش در نتایج برتر</p>
-    <p>• محصولات شما حالا با برچسب "✅ فروشنده معتبر" نمایش داده می‌شوند</p>
-    <button class='btn btn-primary' onclick='closeModal()'>عالی</button>
+    <h3>📋 درخواست ارسال شد</h3>
+    <p>درخواست شما برای عضویت در زیرمجموعه دیجی پلاس با موفقیت ثبت شد.</p>
+    <p><strong>وضعیت:</strong> در حال بررسی توسط کارشناسان</p>
+    <p><strong>زمان بررسی:</strong> 5 تا 10 روز کاری</p>
+    <p><strong>الزامات بررسی:</strong></p>
+    <p>• بررسی کیفیت محصولات</p>
+    <p>• تأیید مدارک هویتی</p>
+    <p>• ارزیابی عملکرد فروش</p>
+    <p>نتیجه بررسی از طریق پنل فروشنده به اطلاع شما خواهد رسید.</p>
+    <p><small>💡 نکته: برای مشاهده تغییر وضعیت، از پنل مدیریت استفاده کنید.</small></p>
+    <button class='btn btn-primary' onclick='closeModal()'>متوجه شدم</button>
+  `;
+  openModal();
+}
+
+function requestTrustBadge(){
+  // به‌روزرسانی وضعیت در state
+  const sellerIndex = state.sellers.findIndex(s => s.name === 'تک استار');
+  if(sellerIndex !== -1) {
+    state.sellers[sellerIndex].status = 'در حال انتظار';
+  }
+  
+  document.getElementById('sellerStatus').innerHTML='وضعیت: لطفاً منتظر کارشناسان ما بمانید... <span style="color:#ff8c00;">⏳</span>';
+  
+  // به‌روزرسانی پنل مدیریت
+  renderAdmin();
+  
+  const c = document.getElementById('modalContent');
+  c.innerHTML = `
+    <h3>📋 درخواست ارسال شد</h3>
+    <p>درخواست شما برای دریافت برچسب اعتماد دیجی کالا با موفقیت ثبت شد.</p>
+    <p><strong>وضعیت:</strong> در حال بررسی توسط کارشناسان</p>
+    <p><strong>زمان بررسی:</strong> 3 تا 7 روز کاری</p>
+    <p>نتیجه بررسی از طریق پنل فروشنده به اطلاع شما خواهد رسید.</p>
+    <p><small>💡 نکته: برای مشاهده تغییر وضعیت، از پنل مدیریت استفاده کنید.</small></p>
+    <button class='btn btn-primary' onclick='closeModal()'>متوجه شدم</button>
   `;
   openModal();
 }
@@ -1163,8 +1565,49 @@ function renderAdmin(){
     }
     el.innerHTML+=`<div class='seller-row'><div>${s.name}</div><div>${statusHtml}</div></div>`;
   });
+  
+  // رندر زیرمجموعه‌ها
+  const digiEl=document.getElementById('adminDigiSubs');
+  digiEl.innerHTML='';
+  state.sellers.forEach((s,i)=>{
+    let digiStatusHtml = '';
+    if(s.digiSubStatus && s.digiSubStatus.includes('✅')) {
+      digiStatusHtml = '<span class="tick-green">✓</span> ' + s.digiSubStatus;
+    } else if(s.digiSubStatus === 'در حال انتظار') {
+      digiStatusHtml = s.digiSubStatus + ' <button class="btn btn-primary" onclick="approveDigiSub('+i+')">تایید زیرمجموعه</button>';
+    } else {
+      digiStatusHtml = s.digiSubStatus || 'هنوز درخواست نداده';
+    }
+    digiEl.innerHTML+=`<div class='seller-row'><div>${s.name}</div><div>${digiStatusHtml}</div></div>`;
+  });
+  
   renderAdminCourierStatus();
   renderReturns();
+}
+
+function approveDigiSub(i) {
+  state.sellers[i].digiSub = true;
+  state.sellers[i].digiSubStatus = 'زیرمجموعه دیجی پلاس ✅';
+  
+  // اگر فروشنده تک استار است، وضعیت پنلش را به‌روزرسانی کن
+  if(state.sellers[i].name === 'تک استار') {
+    const digiSubStatusEl = document.getElementById('digiSubStatus');
+    if(digiSubStatusEl) {
+      digiSubStatusEl.innerHTML = 'وضعیت زیرمجموعه: تایید شده <span class="tick-green">✓</span>';
+    }
+  }
+  
+  renderAdmin();
+  
+  const c = document.getElementById('modalContent');
+  c.innerHTML = `
+    <h3>✅ زیرمجموعه دیجی پلاس تایید شد</h3>
+    <p>فروشنده <strong>${state.sellers[i].name}</strong> به زیرمجموعه دیجی پلاس پیوست.</p>
+    <p>حالا می‌تواند از نام "دیجی-" استفاده کند.</p>
+    <p>تمام محصولات تحت نظارت و کنترل کیفیت دیجی پلاس قرار می‌گیرد.</p>
+    <button class='btn btn-primary' onclick='closeModal()'>تایید</button>
+  `;
+  openModal();
 }
 
 function renderAdminCourierStatus(){
@@ -1197,6 +1640,12 @@ function approveSeller(i) {
       }
     });
     loadProducts(); // بازخوانی محصولات
+    
+    // Update seller panel status
+    const sellerStatusEl = document.getElementById('sellerStatus');
+    if(sellerStatusEl) {
+      sellerStatusEl.innerHTML = 'وضعیت: تایید شده <span class="tick-green">✓</span>';
+    }
   }
   
   renderAdmin();
@@ -1256,8 +1705,14 @@ function courierConfirm(i){
 }
 
 function openModal(){document.getElementById('modal').classList.add('show')}
-function closeModal(){document.getElementById('modal').classList.remove('show')}
+function closeModal(){
+  document.getElementById('modal').classList.remove('show');
+  // Remove digi effect when closing modal
+  const modalBox = document.querySelector('.modal-box');
+  modalBox.classList.remove('digi-product');
+}
 document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()})
 </script>
 </body>
 </html>
+                  
