@@ -178,7 +178,30 @@
         margin-top: 40px;
     }
 
-    .team-section h2 { margin: 0; }
+    /* Workflow Styles */
+    .section-container {
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(8px);
+        padding: 25px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.15);
+        margin-bottom: 20px;
+    }
+
+    .workflow-section {
+        margin-bottom: 30px;
+    }
+
+    .workflow-toggle, .trust-toggle {
+        transition: transform 0.3s ease;
+        padding: 15px;
+        border-radius: 12px;
+        font-weight: 700;
+    }
+
+    .workflow-toggle:hover, .trust-toggle:hover {
+        transform: translateY(-2px);
+    }
 
     .team-features {
         display: grid;
@@ -186,31 +209,6 @@
         gap: 30px;
         margin-top: 30px;
         align-items: stretch;
-    }
-
-    .team-credit-card {
-        grid-column: span 2;
-        background: rgba(255,255,255,0.08);
-        backdrop-filter: blur(8px);
-        padding: 22px;
-        border-radius: 15px;
-        transition: all 0.25s ease;
-        min-height: 200px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-    }
-
-    .team-credit-card:hover {
-        background: rgba(255,255,255,0.15);
-        transform: translateY(-6px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-    }
-
-    @media (max-width: 768px) {
-        .team-credit-card {
-            grid-column: span 1;
-        }
     }
 
     .feature-card {
@@ -408,147 +406,235 @@
 
     <!-- Team Section (Footer) -->
     <div class="team-section" aria-labelledby="team-heading">
-        <h2 id="team-heading" style="text-align: center; font-size: 2rem; margin-bottom: 20px;">
-            حل مشکل عدم اعتماد به فروشندگان ناشناس
-        </h2>
+        <!-- Real-time Workflows Section -->
+        <div class="workflow-section" style="margin-bottom: 30px;">
+            <div class="section-container">
+                <h2 class="workflow-toggle" onclick="toggleWorkflow()" style="cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0; font-size: 1.1rem; text-align: center;">
+                    جریان‌های کار (Workflows) به صورت Realtime در پلتفرم دیجی پلاس (برای مشاهده کلیک کنید)
+                    <span id="workflowArrow" style="font-size: 0.9rem; transition: transform 0.3s ease; display: inline-block;">▼</span>
+                </h2>
+                
+                <div id="workflowContent" style="display: none; margin-top: 20px;">
+                    <h2 style="text-align: center; font-size: 2rem; margin-bottom: 30px; color: white;">
+                        🔄 جریان کار Real-time Workflows
+                    </h2>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 25px; max-width: 1000px; margin: 0 auto;">
+                        
+                        <!-- Workflow 1: برچسب اعتماد -->
+                        <div style="padding: 20px; background: rgba(255,255,255,0.08); border-radius: 15px; border-right: 4px solid #27ae60;">
+                            <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 1.1rem;">🛡️ جریان کار برچسب اعتماد:</h5>
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.9rem;">
+                                <span style="background: rgba(128,0,128,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل فروشنده</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(39,174,96,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">درخواست تیک اعتماد</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(231,76,60,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل مدیریت</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(52,152,219,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">تایید مدیر</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(155,89,182,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">صفحه فروشگاه: نشان تیک اعتماد</span>
+                            </div>
+                        </div>
 
-        <div class="team-features" role="list">
-            <div class="feature-card" role="listitem">
-                <div>
-                  <div class="feature-title">
-                      <span>🥇</span>
-                      <span>برچسب اعتماد دیجی‌کالا</span>
-                  </div>
-                  <div class="feature-description">
-                      فروشندگان با پرداخت ضمانت مالی، برچسب اعتماد دریافت می‌کنند که اعتبار آن‌ها را تضمین می‌کند.
-                      <br><br>
-                      <strong>برای مشاهده:</strong> روی برچسب سبز کنار نام فروشنده hover کنید یا از منوی پنل من &gt; فروشنده، درخواست برچسب دهید.
-                  </div>
+                        <!-- Workflow 2: زیرمجموعه دیجی پلاس -->
+                        <div style="padding: 20px; background: rgba(255,255,255,0.08); border-radius: 15px; border-right: 4px solid #8A2BE2;">
+                            <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 1.1rem;">🏢 جریان کار زیرمجموعه دیجی پلاس:</h5>
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.9rem;">
+                                <span style="background: rgba(128,0,128,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل فروشنده</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(138,43,226,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">درخواست زیرمجموعه</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(231,76,60,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل مدیریت</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(52,152,219,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">تایید مدیر</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(255,193,7,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">فروشگاه: نام "دیجی-" + افکت نئون</span>
+                            </div>
+                        </div>
+
+                        <!-- Workflow 3: تحویل کالا -->
+                        <div style="padding: 20px; background: rgba(255,255,255,0.08); border-radius: 15px; border-right: 4px solid #3498DB;">
+                            <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 1.1rem;">📦 جریان کار تحویل کالا:</h5>
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.9rem;">
+                                <span style="background: rgba(52,152,219,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل پیک</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(39,174,96,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">تایید تحویل + امضا</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(231,76,60,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل مدیریت</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(46,204,113,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">نمایش تیک سبز</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(241,196,15,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">انتقال وجه به فروشنده</span>
+                            </div>
+                        </div>
+
+                        <!-- Workflow 4: مرجوعی کالا -->
+                        <div style="padding: 20px; background: rgba(255,255,255,0.08); border-radius: 15px; border-right: 4px solid #E67E22;">
+                            <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 1.1rem;">↩️ جریان کار مرجوعی کالا:</h5>
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.9rem;">
+                                <span style="background: rgba(155,89,182,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">سفارشات من</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(230,126,34,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">درخواست مرجوعی</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(39,174,96,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">بازگشت وجه فوری</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(231,76,60,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل مدیریت</span>
+                                <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+                                <span style="background: rgba(52,152,219,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">نمایش وضعیت مرجوعی</span>
+                            </div>
+                        </div>
+
+                        <!-- نکته نهایی -->
+                        <div style="text-align: center; margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                            <span style="font-size: 1rem; opacity: 0.9; color: white;">💡 تمام این فرآیندها در زمان واقعی و بدون نیاز به بازخوانی صفحه اتفاق می‌افتند</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="feature-card" role="listitem">
-                <div>
-                  <div class="feature-title">
-                      <span>💳</span>
-                      <span>پرداخت امن</span>
-                  </div>
-                  <div class="feature-description">
-                      مبلغ خرید تا زمان تحویل کالا در حساب امانت نگهداری می‌شود و پس از تأیید پیک به فروشنده منتقل می‌گردد.
-                      <br><br>
-                      <strong>برای مشاهده:</strong> در صفحه جزئیات محصول، روی علامت سؤال کنار دکمه پرداخت امن کلیک کنید.
-                  </div>
+        <!-- Main Trust Section -->
+        <div class="trust-section">
+            <div class="section-container">
+                <h2 class="trust-toggle" onclick="toggleTrust()" style="cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0; font-size: 1.1rem; text-align: center;">
+                    حل مشکل عدم اعتماد به فروشندگان ناشناس (برای مشاهده کلیک کنید)
+                    <span id="trustArrow" style="font-size: 0.9rem; transition: transform 0.3s ease; display: inline-block;">▼</span>
+                </h2>
+
+                <div id="trustContent" style="display: none; margin-top: 30px;">
+                    <!-- توضیح مشکل -->
+                    <div style="background: rgba(255,76,76,0.1); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-right: 4px solid #ff4c4c;">
+                        <h3 style="color: #ff6b6b; margin: 0 0 15px 0; font-size: 1.3rem;">🚨 مشکل: عدم اعتماد خریداران به فروشندگان ناشناس</h3>
+                        <p style="color: white; line-height: 1.6; margin: 0; font-size: 1rem;">
+                            ابعاد مختلف عدم اعتماد خریداران به فروشندگان ناشناس در پلتفرم‌های تجارت الکترونیک:
+                        </p>
+                        <ul style="color: white; margin: 15px 0 0 20px; line-height: 1.8;">
+                            <li><strong>نگرانی از عدم تحویل کالا</strong> پس از پرداخت.</li>
+                            <li><strong>نگرانی از کیفیت پایین محصول</strong> و عدم امکان مرجوعی.</li>
+                            <li><strong>عدم شناخت فروشنده</strong> و نبود ضمانت‌های کافی.</li>
+                            <li><strong>نگرانی از کلاهبرداری</strong> و عدم پشتیبانی مناسب.</li>
+                        </ul>
+                    </div>
+
+                    <!-- راه حل -->
+                    <div style="background: rgba(46,204,113,0.2); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-right: 4px solid #2ecc71;">
+                        <h3 style="color: #2ecc71; margin: 0 0 15px 0; font-size: 1.3rem;">✅ راه حل: پلتفرم DigiPlus</h3>
+                        <p style="color: white; line-height: 1.6; margin: 0; font-size: 1rem;">
+                            پلتفرم DigiPlus که به صورت Realtime کار می‌کند با مکانیسم‌های کلیدی اعتماد را بازسازی می‌کند:
+                        </p>
+                    </div>
+
+                    <div class="team-features" role="list">
+                        <!-- برچسب اعتماد -->
+                        <div style="background: rgba(255,255,255,0.08); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #27ae60;">
+                            <div>
+                              <div class="feature-title">
+                                  <span>🥇</span>
+                                  <span>برچسب اعتماد دیجی‌کالا</span>
+                              </div>
+                              <div class="feature-description">
+                                  <strong>نحوه عمل:</strong> فروشندگان با پرداخت ضمانت، برچسب اعتماد دریافت می‌کنند.
+                                  <br><br>
+                                  <strong>چرا مفید است؟</strong> مشتری‌ها با دیدن برچسب اعتماد به فروشنده اعتماد می‌کنند و دیگر ناشناس یا جدید بودن آن مساله کمتری می‌یابد وقتی در یک پلتفرم معتبر مورد تایید آن پلتفرم قرار گرفته.
+                                  <br><br>
+                                  <strong>به چه صورت کار می‌کند؟</strong> دیجی کالا این فرصت را به فروشندگان ناشناس می‌دهد که با فرستادن کالاهایشان به انبار دیجی کالا و تایید کیفیت کالا توسط کارشناسان دیجی کالا، برچسب اعتماد دیجی کالا که به مشتریان اطمینان کافی برای خرید محصول را می‌دهد دریافت کنند.
+                              </div>
+                            </div>
+                        </div>
+
+                        <!-- زیرمجموعه برند انحصاری -->
+                        <div style="background: rgba(255,255,255,0.08); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #8A2BE2;">
+                            <div>
+                              <div class="feature-title">
+                                  <span>⭐</span>
+                                  <span>زیرمجموعه برند انحصاری دیجی کالا شدن</span>
+                              </div>
+                              <div class="feature-description">
+                                  دیجی کالا این فرصت را به فروشندگان ناشناس می‌دهد که با فرستادن کالاهایشان به انبار دیجی کالا و پس از تایید کیفیت کالا توسط کارشناسان دیجی کالا بتوانند از طریق زیرمجموعه برند انحصاری دیجی کالا شدن و اعتماد مردم به برند دیجی کالا کسب سود کنند.
+                                  <br><br>
+                                  از آنجا که دیجی کالا از فروشندگان ناشناس کالاها را به قیمت معقول خریده و با سود خوب می‌فروشد این یک معامله پایاپای سود (برای هر دو طرف دیجی کالا و فروشنده) برای سود بیشتر است.
+                              </div>
+                            </div>
+                        </div>
+
+                        <!-- پرداخت امن -->
+                        <div style="background: rgba(255,255,255,0.08); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #3498DB;">
+                            <div>
+                              <div class="feature-title">
+                                  <span>💳</span>
+                                  <span>پرداخت امن (Escrow)</span>
+                              </div>
+                              <div class="feature-description">
+                                  وجه تا تحویل کالا در امانت نگهداری می‌شود.
+                                  <br><br>
+                                  <strong>چرا مفید است؟</strong> مشتری می‌تواند اطمینان حاصل کند فقط زمانی که کالا را دریافت می‌کند مبلغ آن را می‌پردازد.
+                              </div>
+                            </div>
+                        </div>
+
+                        <!-- مرجوعی 14 روزه -->
+                        <div style="background: rgba(255,255,255,0.08); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #FF1493;">
+                            <div>
+                              <div class="feature-title">
+                                  <span>↩️</span>
+                                  <span>مرجوعی 14 روزه</span>
+                              </div>
+                              <div class="feature-description">
+                                  امکان مرجوع بدون قید و شرط.
+                                  <br><br>
+                                  <strong>چرا مفید است و مشتریان اعتماد می‌کنند؟</strong> مشتریان فرصت مناسبی دارند که از اصالت و کارایی درست کالا مطمئن شوند.
+                              </div>
+                            </div>
+                        </div>
+
+                        <!-- تحویل با امضای دیجیتال -->
+                        <div style="background: rgba(255,255,255,0.08); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #FF6347;">
+                            <div>
+                              <div class="feature-title">
+                                  <span>📦✉️</span>
+                                  <span>تحویل با امضای دیجیتال</span>
+                              </div>
+                              <div class="feature-description">
+                                  تایید تحویل توسط پیک.
+                                  <br><br>
+                                  <strong>چرا مفید است؟</strong> سیستم می‌تواند از دریافت کالا توسط مشتری اطمینان حاصل پیدا کند.
+                              </div>
+                            </div>
+                        </div>
+
+                        <!-- آموزش فروش -->
+                        <div style="background: rgba(255,255,255,0.08); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #FFD700;">
+                            <div>
+                              <div class="feature-title">
+                                  <span>📚</span>
+                                  <span>آموزش ترفندها و تکنیک‌های فروش برای فروشندگان</span>
+                              </div>
+                              <div class="feature-description">
+                                  <strong>چرا مفید است؟</strong> فروشندگان با کسب آگاهی و دانش فروش بهتر می‌دانند که چه اقداماتی را باید در جهت فروش بهتر و بیشتر انجام دهند.
+                                  <br><br>
+                                  راهنمای جامع فروشندگان شامل آموزش اخذ برچسب‌های اعتماد، تکنیک‌های بهینه‌سازی محصول و استراتژی‌های افزایش فروش.
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- کادر راهنمای Workflow -->
+                    <div style="text-align: center; margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                        <span style="font-size: 1rem; opacity: 0.9; color: white;">💡 توجه: برای دیدن نحوه جریان کار روی تیتر اول در فوتر یعنی: <strong>"جریان‌های کار (Workflows) به صورت Realtime در پلتفرم دیجی پلاس"</strong> کلیک کنید.</span>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="feature-card" role="listitem">
-                <div>
-                  <div class="feature-title">
-                      <span>↩️</span>
-                      <span>مرجوعی 14 روزه</span>
-                  </div>
-                  <div class="feature-description">
-                      خریداران تا 14 روز فرصت مرجوع کردن کالا را دارند که اعتماد به خرید را افزایش می‌دهد.
-                      <br><br>
-                      <strong>برای مشاهده:</strong> از منوی پنل من &gt; مشتری، کالاهای خریداری شده را مشاهده کنید.
-                  </div>
-                </div>
+        <!-- Credit Section (بدون toggle) -->
+        <div style="text-align: center; margin-top: 40px; padding: 25px; background: rgba(255,255,255,0.05); border-radius: 15px;">
+            <div style="color: white; font-size: 1.2rem; font-weight: 700; margin-bottom: 15px;">
+                🚀 طرح توسط گروه استارتاپی Pal Labs <span style="font-size: 0.9rem; font-weight: 500;">( محمد سخن سنج ، فاطمه صباغ کاشانی)</span>
             </div>
-
-            <div class="feature-card" role="listitem">
-                <div>
-                  <div class="feature-title">
-                      <span>⚙️</span>
-                      <span>سیستم نظارت پیشرفته</span>
-                  </div>
-                  <div class="feature-description">
-                      سیستم نظارت بر فروشندگان و تأیید برچسب اعتماد برای کنترل کیفیت محصولات.
-                      <br><br>
-                      <strong>برای مشاهده:</strong> از منوی پنل من &gt; مدیریت، وضعیت فروشندگان را بررسی کنید.
-                  </div>
-                </div>
+            <div style="opacity: 0.7; font-size: 0.9rem; font-style: italic; color: white;">
+                "دهمین کمپ استارتاپی دیجی نکست"
             </div>
-
-            <div class="feature-card" role="listitem">
-                <div>
-                  <div class="feature-title">
-                      <span>📦✉️</span>
-                      <span>تحویل امن با امضا</span>
-                  </div>
-                  <div class="feature-description">
-                      پیک‌ها با دریافت امضای دیجیتال، تحویل کالا را تأیید و انتقال وجه را فعال می‌کنند.
-                      <br><br>
-                      <strong>برای مشاهده:</strong> از منوی پنل من &gt; پیک، فرآیند تحویل را شبیه‌سازی کنید.
-                  </div>
-                </div>
-            </div>
-
-            <div class="feature-card" role="listitem">
-                <div>
-                  <div class="feature-title">
-                      <span>⚡</span>
-                      <span>تعاملات Realtime در این MVP</span>
-                  </div>
-                  <div class="feature-description">
-                      <strong>برای فروشنده:</strong> پنل من &gt; فروشنده &gt; درخواست برچسب اعتماد. سپس پنل من &gt; مدیریت برای مشاهده تغییر وضعیت.
-                      <br><br>
-                      <strong>برای پیک:</strong> پنل من &gt; پیک &gt; تایید تحویل. سپس پنل من &gt; مدیریت برای مشاهده تیک سبز.
-                      <br><br>
-                      <strong>برای مشتری:</strong> خرید محصول، سپس مرجوع کالا از "سفارشات من". در پنل مدیریت تغییرات را ببینید.
-                  </div>
-                </div>
-            </div>
-
-            <div class="feature-card" role="listitem">
-                <div>
-                  <div class="feature-title">
-                      <span>🎓</span>
-                      <span>آموزش ترفندها و تکنیک‌های فروش به فروشندگان</span>
-                  </div>
-                  <div class="feature-description">
-                      راهنمای جامع فروشندگان شامل آموزش اخذ برچسب‌های اعتماد، تکنیک‌های بهینه‌سازی محصول و استراتژی‌های افزایش فروش.
-                      <br><br>
-                      <strong>برای مشاهده:</strong> از منوی پنل من &gt; فروشنده، روی دکمه "آموزش ترفندهای فروش" کلیک کنید و آموزش‌های کاربردی را مطالعه نمایید.
-                  </div>
-                </div>
-            </div>
-
-            <div class="feature-card" role="listitem">
-                <div>
-                  <div class="feature-title">
-                      <span>⭐</span>
-                      <span>فروشگاه‌های انحصاری دیجی پلاس</span>
-                  </div>
-                  <div class="feature-description">
-                      مجموعه منتخبی از فروشگاه‌های متخصص در حوزه‌های مختلف که تحت نظارت مستقیم دیجی پلاس عمل می‌کنند و بالاترین سطح کیفیت و اعتماد را ارائه می‌دهند.
-                      <br><br>
-                      <strong>دیجی-موبایل:</strong> متخصص در فروش گوشی‌های هوشمند و لوازم جانبی
-                      <br><strong>دیجی-لپتاپ:</strong> متخصص در فروش لپتاپ و کامپیوتر
-                      <br><strong>دیجی-گیمینگ:</strong> متخصص در کنسول‌ها و تجهیزات بازی
-                      <br><br>
-                      این فروشگاه‌ها با نشان "⭐ دیجی استور" شناسایی می‌شوند و گارانتی کیفیت صد درصدی دارند.
-                  </div>
-                </div>
-            </div>
-
-            <div class="feature-card" role="listitem">
-                <div>
-                  <div class="feature-title">
-                      <span>🚀</span>
-                      <span>طرح توسط گروه استارتاپی Pal Labs</span>
-                  </div>
-                  <div class="feature-description">
-                      محمد سخن سنج ، فاطمه صباغ کاشانی
-                      <br><br>
-                      این MVP برای حل مشکل عدم اعتماد به فروشندگان ناشناس در پلتفرم‌های تجارت الکترونیک طراحی شده است.
-                      <br><br>
-                      <div style="text-align: center; margin-top: 20px;">
-                        <span style="opacity: 0.7; font-size: 0.85rem; font-style: italic;">"دهمین کمپ استارتاپی دیجی نکست"</span>
-                      </div>
-                  </div>
-                </div>
-            </div>
-
         </div>
     </div>
     <!-- End Team Section -->
@@ -670,7 +756,7 @@ const state={
   myOrders:[],
   orders:[],
   sellers:[
-    {name:'موبایل پارس',trusted:false,status:'در حال انتظار',digiSub:false,digiSubStatus:'در حال انتظار'},
+    {name:'کامپیوتر مرکزی',trusted:false,status:'در حال انتظار',digiSub:false,digiSubStatus:'در حال انتظار'},
     {name:'تک استار',trusted:false,status:'(متاثر از Real-time interaction به عنوان فروشنده در این MVP)',digiSub:false,digiSubStatus:'(متاثر از Real-time interaction به عنوان فروشنده در این MVP)'},
     {name:'دیجی-لپتاپ',trusted:true,status:'تایید شده ✅',digiSub:true,digiSubStatus:'زیرمجموعه دیجی پلاس ✅'},
     {name:'دیجی-موبایل',trusted:true,status:'تایید شده ✅',digiSub:true,digiSubStatus:'زیرمجموعه دیجی پلاس ✅'},
@@ -1632,7 +1718,7 @@ function renderAdminCourierStatus(){
 function approveSeller(i) {
   state.sellers[i].status = 'تایید شده ✅';
   
-  // اگر فروشنده تک استار است، محصولاتش را به‌روزرسانی کن
+  // اگر فروشنده تک استار یا کامپیوتر مرکزی است، محصولاتش را به‌روزرسانی کن
   if(state.sellers[i].name === 'تک استار') {
     state.products.forEach(product => {
       if(product.seller === 'تک استار') {
@@ -1648,13 +1734,23 @@ function approveSeller(i) {
     }
   }
   
+  // اگر فروشنده کامپیوتر مرکزی است، محصولاتش را به‌روزرسانی کن
+  if(state.sellers[i].name === 'کامپیوتر مرکزی') {
+    state.products.forEach(product => {
+      if(product.seller === 'کامپیوتر مرکزی') {
+        product.trusted = true;
+      }
+    });
+    loadProducts(); // بازخوانی محصولات
+  }
+  
   renderAdmin();
   const c = document.getElementById('modalContent');
   c.innerHTML = `
     <h3>✅ فروشنده تایید شد</h3>
     <p>فروشنده <strong>${state.sellers[i].name}</strong> با موفقیت تایید شد.</p>
     <p>حالا می‌تواند از برچسب اعتماد استفاده کند.</p>
-    ${state.sellers[i].name === 'تک استار' ? '<p>محصولات این فروشنده حالا با برچسب "✅ فروشنده معتبر" نمایش داده می‌شوند.</p>' : ''}
+    ${(state.sellers[i].name === 'تک استار' || state.sellers[i].name === 'کامپیوتر مرکزی') ? '<p>محصولات این فروشنده حالا با برچسب "✅ فروشنده معتبر" نمایش داده می‌شوند.</p>' : ''}
     <button class='btn btn-primary' onclick='closeModal()'>تایید</button>
   `;
   openModal();
@@ -1712,6 +1808,37 @@ function closeModal(){
   modalBox.classList.remove('digi-product');
 }
 document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()})
+
+// JavaScript مربوط به فوتر
+function toggleWorkflow() {
+  const content = document.getElementById('workflowContent');
+  const arrow = document.getElementById('workflowArrow');
+  
+  if (content.style.display === 'none' || content.style.display === '') {
+    content.style.display = 'block';
+    arrow.style.transform = 'rotate(180deg)';
+    arrow.textContent = '▼';
+  } else {
+    content.style.display = 'none';
+    arrow.style.transform = 'rotate(0deg)';
+    arrow.textContent = '▼';
+  }
+}
+
+function toggleTrust() {
+  const content = document.getElementById('trustContent');
+  const arrow = document.getElementById('trustArrow');
+  
+  if (content.style.display === 'none' || content.style.display === '') {
+    content.style.display = 'block';
+    arrow.style.transform = 'rotate(180deg)';
+    arrow.textContent = '▼';
+  } else {
+    content.style.display = 'none';
+    arrow.style.transform = 'rotate(0deg)';
+    arrow.textContent = '▼';
+  }
+}
 </script>
 </body>
 </html>
