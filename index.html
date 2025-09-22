@@ -669,6 +669,46 @@
     <button class="btn btn-success" onclick="requestTrustBadge()">🛡️ درخواست برچسب اعتماد دیجی کالا</button>
     <div class="seller-status" id="digiSubStatus" style="margin-top:15px">وضعیت زیرمجموعه: در انتظار درخواست</div>
     <button class="btn btn-primary" onclick="requestDigiSub()" style="margin-top:10px">🏢 درخواست زیرمجموعه دیجی پلاس</button>
+    
+    <!-- تنظیمات حراج -->
+    <div style="background:#f8f9ff;padding:20px;border-radius:10px;margin-top:20px;border:1px solid #e0e7ff">
+      <h4 style="color:#800080;margin:0 0 15px 0">⚡ تنظیمات حراج فوری</h4>
+      
+      <!-- تنظیمات درصد تخفیف -->
+      <div style="margin-bottom:15px">
+        <label style="font-weight:600;margin-bottom:8px;display:block">درصد تخفیف:</label>
+        <input type="number" id="discountPercent" placeholder="درصد تخفیف (مثال: 25)" min="1" max="80" style="width:150px;padding:8px;border:1px solid #ddd;border-radius:6px">
+        <span style="margin-left:10px;color:#666">٪</span>
+      </div>
+      
+      <!-- تنظیمات زمان -->
+      <div style="margin-bottom:15px">
+        <label style="font-weight:600;margin-bottom:8px;display:block">مدت زمان حراج:</label>
+        <div style="display:flex;gap:10px;align-items:center">
+          <input type="number" id="saleDays" placeholder="روز" min="0" max="30" style="width:70px;padding:8px;border:1px solid #ddd;border-radius:6px">
+          <span style="color:#666">روز</span>
+          <input type="number" id="saleHours" placeholder="ساعت" min="0" max="23" style="width:70px;padding:8px;border:1px solid #ddd;border-radius:6px">
+          <span style="color:#666">ساعت</span>
+          <input type="number" id="saleMinutes" placeholder="دقیقه" min="1" max="59" style="width:70px;padding:8px;border:1px solid #ddd;border-radius:6px">
+          <span style="color:#666">دقیقه</span>
+        </div>
+      </div>
+      
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-warning" onclick="startSale()">🔥 شروع حراج فوری</button>
+        <button class="btn btn-secondary" onclick="stopSale()">⏹️ توقف حراج</button>
+      </div>
+      
+      <!-- نمایش وضعیت حراج -->
+      <div id="saleStatus" style="margin-top:15px;padding:10px;background:#e8f4f8;border-radius:8px;display:none">
+        <div style="font-weight:600;color:#27ae60">حراج فعال است!</div>
+        <div style="margin-top:8px">
+          <span style="color:#666">درصد تخفیف: </span><span id="currentDiscount" style="font-weight:700;color:#e74c3c">0%</span>
+          <br>
+          <span style="color:#666">زمان باقی‌مانده: </span><span id="remainingTime" style="font-weight:700;color:#f39c12">--:--:--</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div id="admin" class="content-card" style="display:none">
@@ -742,6 +782,14 @@ const state={
     salesTechniques: true
   },
   digiSubRequest: false,
+  saleSettings: {
+    discountPercent: 0,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    endTime: null,
+    active: false
+  },
   products:[
     {id:1,name:'گوشی Samsung Galaxy S24 Ultra',price:32500000,seller:'دیجی-موبایل',trusted:true,img:'📱',desc:'گوشی پرچمدار سامسونگ با دوربین 200 مگاپیکسلی و پردازنده Snapdragon 8 Gen 3.\nویژگی‌ها: صفحه نمایش 6.8 اینچ، حافظه 512GB، باتری 5000mAh، وزن 220 گرم، سال ساخت 2024، کشور تولید: کره جنوبی',rating:4.8,reviewCount:324},
     {id:2,name:'لپتاپ Asus ROG Gaming',price:45000000,seller:'دیجی-لپتاپ',trusted:true,img:'💻',desc:'لپتاپ گیمینگ قدرتمند با کارت گرافیک RTX 4070 و پردازنده Intel Core i7.\nویژگی‌ها: رم 16GB، پردازنده i7، نمایشگر 240Hz، وزن 2.3 کیلوگرم، سال ساخت 2023، کشور تولید: تایوان',rating:4.9,reviewCount:189},
@@ -1194,6 +1242,30 @@ function loadProducts(){
     const d=document.createElement('div');
     d.className='product-card';
     
+    // محاسبه تخفیف برای محصولات تک استار
+    let originalPrice = p.price;
+    let discountedPrice = p.price;
+    let hasDiscount = false;
+    let timeRemaining = '';
+    
+    if (state.saleSettings.active && p.seller === 'تک استار') {
+      hasDiscount = true;
+      discountedPrice = Math.round(p.price * (100 - state.saleSettings.discountPercent) / 100);
+      
+      // محاسبه زمان باقی‌مانده
+      const now = new Date().getTime();
+      const timeLeft = state.saleSettings.endTime - now;
+      if (timeLeft > 0) {
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        
+        if (days > 0) timeRemaining = `${days}ر ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        else timeRemaining = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      }
+    }
+    
     // Generate custom star rating
     const fullStars = Math.floor(p.rating);
     const hasHalfStar = p.rating % 1 >= 0.5;
@@ -1235,9 +1307,26 @@ function loadProducts(){
     }
     
     d.innerHTML=`
-      <div class="product-image">${p.img}</div>
+      <div class="product-image" style="position:relative;">
+        ${hasDiscount ? `
+          <div style="position:absolute;top:-8px;left:-8px;background:linear-gradient(45deg,#e74c3c,#c0392b);color:white;padding:6px 12px;border-radius:0 0 12px 0;font-size:0.8rem;font-weight:700;z-index:5;transform:rotate(-45deg);transform-origin:bottom right;min-width:60px;text-align:center;box-shadow:0 2px 8px rgba(231,76,60,0.3)">
+            ${state.saleSettings.discountPercent}% OFF
+          </div>
+        ` : ''}
+        ${p.img}
+      </div>
       <div class="product-title">${p.name}</div>
-      <div class="product-price" style="${p.seller.startsWith('دیجی-') ? 'color:#800080;font-weight:900;' : ''}">${fmt(p.price)} تومان</div>
+      <div class="product-price" style="${p.seller.startsWith('دیجی-') ? 'color:#800080;font-weight:900;' : ''}">
+        ${hasDiscount ? `
+          <div style="text-decoration:line-through;color:#999;font-size:0.9rem;margin-bottom:4px">${fmt(originalPrice)} تومان</div>
+          <div style="color:#e74c3c;font-weight:900;font-size:1.3rem">${fmt(discountedPrice)} تومان</div>
+        ` : `${fmt(p.price)} تومان`}
+      </div>
+      ${hasDiscount && timeRemaining ? `
+        <div class="timer" style="background:#fff3cd;padding:6px 8px;border-radius:6px;margin:8px 0;text-align:center;font-size:0.8rem">
+          ⏰ ${timeRemaining} تا پایان حراج
+        </div>
+      ` : ''}
       <div class="rating-section">
         <div class="stars">${starsHTML}</div>
         <div class="rating-text">${p.rating} (${p.reviewCount} نظر)</div>
@@ -1260,7 +1349,7 @@ function loadProducts(){
             </button>
           `}
         </div>
-        <button class='btn btn-success' onclick='addToCart(${p.id})' style="width: 100%; padding: 10px; font-size: 1.05rem;">
+        <button class='btn btn-success' onclick='addToCart(${p.id}, ${hasDiscount ? discountedPrice : p.price})' style="width: 100%; padding: 10px; font-size: 1.05rem;">
           🛒 افزودن به سبد خرید
         </button>
       </div>
@@ -1272,6 +1361,17 @@ function loadProducts(){
     }
     grid.appendChild(d);
   });
+  
+  // شروع تایمر برای بروزرسانی
+  if (state.saleSettings.active && !window.productUpdateTimer) {
+    window.productUpdateTimer = setInterval(() => {
+      if (state.saleSettings.active) loadProducts();
+      else {
+        clearInterval(window.productUpdateTimer);
+        window.productUpdateTimer = null;
+      }
+    }, 1000);
+  }
 }
 
 function viewProduct(id){
@@ -1419,10 +1519,14 @@ function explainEscrow(){
   openModal();
 }
 
-function addToCart(id){
+function addToCart(id, customPrice = null){
   const p=state.products.find(x=>x.id===id);
   if(!p)return;
-  state.cart.push({...p,qty:1,returned:false,purchased:false});
+  
+  // استفاده از قیمت سفارشی اگر ارسال شده (برای حراج)
+  const finalPrice = customPrice || p.price;
+  
+  state.cart.push({...p, price: finalPrice, qty:1,returned:false,purchased:false});
   updateCart();
   
   // نمایش پاپ‌آپ تایید
@@ -1431,7 +1535,8 @@ function addToCart(id){
     <h3>✅ افزودن به سبد خرید</h3>
     <p>محصول با موفقیت به سبد خرید شما اضافه شد!</p>
     <p><strong>محصول:</strong> ${p.name}</p>
-    <p><strong>قیمت:</strong> ${fmt(p.price)} تومان</p>
+    <p><strong>قیمت:</strong> ${fmt(finalPrice)} تومان</p>
+    ${customPrice && customPrice !== p.price ? `<p><strong>تخفیف:</strong> ${fmt(p.price - finalPrice)} تومان</p>` : ''}
     <p><strong>فروشنده:</strong> ${p.seller}</p>
     <p>برای مشاهده سبد خرید، روی آیکون سبد کلیک کنید.</p>
     <button class='btn btn-primary' onclick='closeModal()'>تایید</button>
@@ -1808,6 +1913,108 @@ function closeModal(){
   modalBox.classList.remove('digi-product');
 }
 document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()})
+
+// تابع شروع حراج
+function startSale() {
+  const discountPercent = parseInt(document.getElementById('discountPercent').value) || 0;
+  const days = parseInt(document.getElementById('saleDays').value) || 0;
+  const hours = parseInt(document.getElementById('saleHours').value) || 0;
+  const minutes = parseInt(document.getElementById('saleMinutes').value) || 0;
+  
+  if (discountPercent <= 0 || discountPercent > 80) {
+    alert('درصد تخفیف باید بین 1 تا 80 باشد!');
+    return;
+  }
+  
+  if (days === 0 && hours === 0 && minutes === 0) {
+    alert('لطفاً مدت زمان حراج را مشخص کنید!');
+    return;
+  }
+  
+  // محاسبه زمان پایان
+  const totalMinutes = (days * 24 * 60) + (hours * 60) + minutes;
+  const endTime = new Date().getTime() + (totalMinutes * 60 * 1000);
+  
+  state.saleSettings = {
+    discountPercent: discountPercent,
+    days: days,
+    hours: hours,  
+    minutes: minutes,
+    endTime: endTime,
+    active: true
+  };
+  
+  // نمایش وضعیت حراج
+  document.getElementById('saleStatus').style.display = 'block';
+  document.getElementById('currentDiscount').textContent = discountPercent + '%';
+  
+  // شروع تایمر
+  if (window.saleTimer) clearInterval(window.saleTimer);
+  window.saleTimer = setInterval(updateSaleTimer, 1000);
+  
+  // بروزرسانی محصولات
+  loadProducts();
+  
+  const c = document.getElementById('modalContent');
+  c.innerHTML = `
+    <h3>🔥 حراج فوری شروع شد!</h3>
+    <p>حراج ${discountPercent}% با موفقیت فعال شد.</p>
+    <p>مدت زمان: ${days} روز، ${hours} ساعت، ${minutes} دقیقه</p>
+    <p>محصولات شما حالا با تخفیف نمایش داده می‌شوند.</p>
+    <button class='btn btn-primary' onclick='closeModal()'>تایید</button>
+  `;
+  openModal();
+}
+
+// تابع توقف حراج
+function stopSale() {
+  state.saleSettings.active = false;
+  document.getElementById('saleStatus').style.display = 'none';
+  
+  if (window.saleTimer) {
+    clearInterval(window.saleTimer);
+    window.saleTimer = null;
+  }
+  
+  loadProducts();
+  
+  const c = document.getElementById('modalContent');
+  c.innerHTML = `
+    <h3>⏹️ حراج متوقف شد</h3>
+    <p>حراج با موفقیت متوقف شد.</p>
+    <p>محصولات به قیمت عادی نمایش داده می‌شوند.</p>
+    <button class='btn btn-primary' onclick='closeModal()'>تایید</button>
+  `;
+  openModal();
+}
+
+// تابع بروزرسانی تایمر
+function updateSaleTimer() {
+  if (!state.saleSettings.active) return;
+  
+  const now = new Date().getTime();
+  const timeLeft = state.saleSettings.endTime - now;
+  
+  if (timeLeft <= 0) {
+    // حراج تمام شد
+    state.saleSettings.active = false;
+    document.getElementById('saleStatus').style.display = 'none';
+    clearInterval(window.saleTimer);
+    loadProducts();
+    return;
+  }
+  
+  const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+  
+  let timeString = '';
+  if (days > 0) timeString += days + 'ر ';
+  timeString += String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+  
+  document.getElementById('remainingTime').textContent = timeString;
+}
 
 // JavaScript مربوط به فوتر
 function toggleWorkflow() {
