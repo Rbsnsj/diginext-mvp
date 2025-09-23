@@ -86,6 +86,7 @@
     .nav-tab{background:#fff;color:#333;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
     .nav-tab.active{background:#800080;color:#fff}
     .panel-dropdown{position:relative}
+    .guide-dropdown{position:relative}
     .dropdown-menu{position:absolute;right:0;top:100%;background:#fff;padding:8px;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.2);display:none;z-index:10}
     .dropdown-menu.show{display:block}
     .dropdown-item{padding:8px;border-radius:6px;cursor:pointer}
@@ -333,73 +334,83 @@
       </div>
       <div class="logo-icon">+</div>
     </div>
-    <div class="user-info">
-      <div class="cart-icon" id="trainingIcon" onclick="showSalesTrainingMenu()" style="display:none;margin-left:15px">📚 آموزش ترفندها و تکنیک‌های فروش<span class="cart-badge" id="trainingBadge">0</span></div>
-      <div class="orders-icon" id="ordersIcon" onclick="showSection('myorders')" style="display:none">📋 سفارشات من</div>
-      <div class="cart-icon" id="cartIcon" onclick="showSection('cart')" style="display:none">🛒 سبد خرید<span class="cart-badge" id="cartBadge">0</span></div>
-      <div class="balance" id="balanceDiv" style="display:none">موجودی: <span id="userBalance">0</span> تومان</div>
-      <div class="color-picker" onclick="toggleColorPicker()" style="position: relative;">
-        🎨
-        <div class="color-picker-menu" id="colorPickerMenu">
-          <!-- Row 1: Purples & Violets -->
-          <div class="color-option" onclick="changeThemeColor('#800080')" style="background:#800080" title="Purple"></div>
-          <div class="color-option" onclick="changeThemeColor('#663399')" style="background:#663399" title="RebeccaPurple"></div>
-          <div class="color-option" onclick="changeThemeColor('#4B0082')" style="background:#4B0082" title="Indigo"></div>
-          <div class="color-option" onclick="changeThemeColor('#8A2BE2')" style="background:#8A2BE2" title="BlueViolet"></div>
-          <div class="color-option" onclick="changeThemeColor('#9932CC')" style="background:#9932CC" title="DarkOrchid"></div>
-          
-          <!-- Row 2: Pinks & Magentas -->
-          <div class="color-option" onclick="changeThemeColor('#FF1493')" style="background:#FF1493" title="DeepPink"></div>
-          <div class="color-option" onclick="changeThemeColor('#C71585')" style="background:#C71585" title="MediumVioletRed"></div>
-          <div class="color-option" onclick="changeThemeColor('#DC143C')" style="background:#DC143C" title="Crimson"></div>
-          <div class="color-option" onclick="changeThemeColor('#FF69B4')" style="background:#FF69B4" title="HotPink"></div>
-          <div class="color-option" onclick="changeThemeColor('#FF6347')" style="background:#FF6347" title="Tomato"></div>
-          
-          <!-- Row 3: Reds -->
-          <div class="color-option" onclick="changeThemeColor('#8B0000')" style="background:#8B0000" title="DarkRed"></div>
-          <div class="color-option" onclick="changeThemeColor('#800000')" style="background:#800000" title="Maroon"></div>
-          <div class="color-option" onclick="changeThemeColor('#B22222')" style="background:#B22222" title="FireBrick"></div>
-          <div class="color-option" onclick="changeThemeColor('#CD5C5C')" style="background:#CD5C5C" title="IndianRed"></div>
-          <div class="color-option" onclick="changeThemeColor('#A0522D')" style="background:#A0522D" title="Sienna"></div>
-          
-          <!-- Row 4: Blues -->
-          <div class="color-option" onclick="changeThemeColor('#191970')" style="background:#191970" title="MidnightBlue"></div>
-          <div class="color-option" onclick="changeThemeColor('#000080')" style="background:#000080" title="Navy"></div>
-          <div class="color-option" onclick="changeThemeColor('#0000CD')" style="background:#0000CD" title="MediumBlue"></div>
-          <div class="color-option" onclick="changeThemeColor('#4169E1')" style="background:#4169E1" title="RoyalBlue"></div>
-          <div class="color-option" onclick="changeThemeColor('#1E90FF')" style="background:#1E90FF" title="DodgerBlue"></div>
-          
-          <!-- Row 5: Teals & Cyans -->
-          <div class="color-option" onclick="changeThemeColor('#008B8B')" style="background:#008B8B" title="DarkCyan"></div>
-          <div class="color-option" onclick="changeThemeColor('#20B2AA')" style="background:#20B2AA" title="LightSeaGreen"></div>
-          <div class="color-option" onclick="changeThemeColor('#008080')" style="background:#008080" title="Teal"></div>
-          <div class="color-option" onclick="changeThemeColor('#5F9EA0')" style="background:#5F9EA0" title="CadetBlue"></div>
-          <div class="color-option" onclick="changeThemeColor('#48D1CC')" style="background:#48D1CC" title="MediumTurquoise"></div>
-          
-          <!-- Row 6: Greens -->
-          <div class="color-option" onclick="changeThemeColor('#006400')" style="background:#006400" title="DarkGreen"></div>
-          <div class="color-option" onclick="changeThemeColor('#228B22')" style="background:#228B22" title="ForestGreen"></div>
-          <div class="color-option" onclick="changeThemeColor('#32CD32')" style="background:#32CD32" title="LimeGreen"></div>
-          <div class="color-option" onclick="changeThemeColor('#9ACD32')" style="background:#9ACD32" title="YellowGreen"></div>
-          <div class="color-option" onclick="changeThemeColor('#8FBC8F')" style="background:#8FBC8F" title="DarkSeaGreen"></div>
-          
-          <!-- Row 7: Yellows & Oranges -->
-          <div class="color-option" onclick="changeThemeColor('#FFD700')" style="background:#FFD700" title="Gold"></div>
-          <div class="color-option" onclick="changeThemeColor('#FFA500')" style="background:#FFA500" title="Orange"></div>
-          <div class="color-option" onclick="changeThemeColor('#FF8C00')" style="background:#FF8C00" title="DarkOrange"></div>
-          <div class="color-option" onclick="changeThemeColor('#FF7F50')" style="background:#FF7F50" title="Coral"></div>
-          <div class="color-option" onclick="changeThemeColor('#D2691E')" style="background:#D2691E" title="Chocolate"></div>
-          
-          <!-- Row 8: Grays & Browns -->
-          <div class="color-option" onclick="changeThemeColor('#2F4F4F')" style="background:#2F4F4F" title="DarkSlateGray"></div>
-          <div class="color-option" onclick="changeThemeColor('#696969')" style="background:#696969" title="DimGray"></div>
-          <div class="color-option" onclick="changeThemeColor('#708090')" style="background:#708090" title="SlateGray"></div>
-          <div class="color-option" onclick="changeThemeColor('#8B4513')" style="background:#8B4513" title="SaddleBrown"></div>
-          <div class="color-option" onclick="changeThemeColor('#556B2F')" style="background:#556B2F" title="DarkOliveGreen"></div>
+    <div style="display: flex; align-items: center; gap: 25px;">
+      <!-- راهنمای پلتفرم -->
+      <div class="guide-dropdown">
+        <span id="guideToggle" style="cursor:pointer;background:#f8f9fa;color:#333;padding:8px 12px;border-radius:8px;font-weight:600;font-size:0.9rem" onclick="var menu = document.getElementById('guideMenu'); menu.style.display = menu.style.display === 'block' ? 'none' : 'block';">راهنمای پلتفرم DigiPlus ▾</span>
+        <div class="dropdown-menu" id="guideMenu" style="min-width:250px;display:none">
+          <div class="dropdown-item" onclick="showSection('workflows'); document.getElementById('guideMenu').style.display='none';">📄 جریان‌های کار Realtime</div>
+          <div class="dropdown-item" onclick="showSection('trustSolution'); document.getElementById('guideMenu').style.display='none';">🛡️ حل مشکل عدم اعتماد</div>
         </div>
       </div>
-      <div id="username">
-        <span id="userDisplayName">پارسا سخن سنج</span>
+      <div class="user-info">
+        <div class="cart-icon" id="trainingIcon" onclick="showSalesTrainingMenu()" style="display:none;margin-left:15px">📚 آموزش ترفندها و تکنیک‌های فروش<span class="cart-badge" id="trainingBadge">0</span></div>
+        <div class="orders-icon" id="ordersIcon" onclick="showSection('myorders')" style="display:none">📋 سفارشات من</div>
+        <div class="cart-icon" id="cartIcon" onclick="showSection('cart')" style="display:none">🛒 سبد خرید<span class="cart-badge" id="cartBadge">0</span></div>
+        <div class="balance" id="balanceDiv" style="display:none">موجودی: <span id="userBalance">0</span> تومان</div>
+        <div class="color-picker" onclick="toggleColorPicker()" style="position: relative;">
+          🎨
+          <div class="color-picker-menu" id="colorPickerMenu">
+            <!-- Row 1: Purples & Violets -->
+            <div class="color-option" onclick="changeThemeColor('#800080')" style="background:#800080" title="Purple"></div>
+            <div class="color-option" onclick="changeThemeColor('#663399')" style="background:#663399" title="RebeccaPurple"></div>
+            <div class="color-option" onclick="changeThemeColor('#4B0082')" style="background:#4B0082" title="Indigo"></div>
+            <div class="color-option" onclick="changeThemeColor('#8A2BE2')" style="background:#8A2BE2" title="BlueViolet"></div>
+            <div class="color-option" onclick="changeThemeColor('#9932CC')" style="background:#9932CC" title="DarkOrchid"></div>
+            
+            <!-- Row 2: Pinks & Magentas -->
+            <div class="color-option" onclick="changeThemeColor('#FF1493')" style="background:#FF1493" title="DeepPink"></div>
+            <div class="color-option" onclick="changeThemeColor('#C71585')" style="background:#C71585" title="MediumVioletRed"></div>
+            <div class="color-option" onclick="changeThemeColor('#DC143C')" style="background:#DC143C" title="Crimson"></div>
+            <div class="color-option" onclick="changeThemeColor('#FF69B4')" style="background:#FF69B4" title="HotPink"></div>
+            <div class="color-option" onclick="changeThemeColor('#FF6347')" style="background:#FF6347" title="Tomato"></div>
+            
+            <!-- Row 3: Reds -->
+            <div class="color-option" onclick="changeThemeColor('#8B0000')" style="background:#8B0000" title="DarkRed"></div>
+            <div class="color-option" onclick="changeThemeColor('#800000')" style="background:#800000" title="Maroon"></div>
+            <div class="color-option" onclick="changeThemeColor('#B22222')" style="background:#B22222" title="FireBrick"></div>
+            <div class="color-option" onclick="changeThemeColor('#CD5C5C')" style="background:#CD5C5C" title="IndianRed"></div>
+            <div class="color-option" onclick="changeThemeColor('#A0522D')" style="background:#A0522D" title="Sienna"></div>
+            
+            <!-- Row 4: Blues -->
+            <div class="color-option" onclick="changeThemeColor('#191970')" style="background:#191970" title="MidnightBlue"></div>
+            <div class="color-option" onclick="changeThemeColor('#000080')" style="background:#000080" title="Navy"></div>
+            <div class="color-option" onclick="changeThemeColor('#0000CD')" style="background:#0000CD" title="MediumBlue"></div>
+            <div class="color-option" onclick="changeThemeColor('#4169E1')" style="background:#4169E1" title="RoyalBlue"></div>
+            <div class="color-option" onclick="changeThemeColor('#1E90FF')" style="background:#1E90FF" title="DodgerBlue"></div>
+            
+            <!-- Row 5: Teals & Cyans -->
+            <div class="color-option" onclick="changeThemeColor('#008B8B')" style="background:#008B8B" title="DarkCyan"></div>
+            <div class="color-option" onclick="changeThemeColor('#20B2AA')" style="background:#20B2AA" title="LightSeaGreen"></div>
+            <div class="color-option" onclick="changeThemeColor('#008080')" style="background:#008080" title="Teal"></div>
+            <div class="color-option" onclick="changeThemeColor('#5F9EA0')" style="background:#5F9EA0" title="CadetBlue"></div>
+            <div class="color-option" onclick="changeThemeColor('#48D1CC')" style="background:#48D1CC" title="MediumTurquoise"></div>
+            
+            <!-- Row 6: Greens -->
+            <div class="color-option" onclick="changeThemeColor('#006400')" style="background:#006400" title="DarkGreen"></div>
+            <div class="color-option" onclick="changeThemeColor('#228B22')" style="background:#228B22" title="ForestGreen"></div>
+            <div class="color-option" onclick="changeThemeColor('#32CD32')" style="background:#32CD32" title="LimeGreen"></div>
+            <div class="color-option" onclick="changeThemeColor('#9ACD32')" style="background:#9ACD32" title="YellowGreen"></div>
+            <div class="color-option" onclick="changeThemeColor('#8FBC8F')" style="background:#8FBC8F" title="DarkSeaGreen"></div>
+            
+            <!-- Row 7: Yellows & Oranges -->
+            <div class="color-option" onclick="changeThemeColor('#FFD700')" style="background:#FFD700" title="Gold"></div>
+            <div class="color-option" onclick="changeThemeColor('#FFA500')" style="background:#FFA500" title="Orange"></div>
+            <div class="color-option" onclick="changeThemeColor('#FF8C00')" style="background:#FF8C00" title="DarkOrange"></div>
+            <div class="color-option" onclick="changeThemeColor('#FF7F50')" style="background:#FF7F50" title="Coral"></div>
+            <div class="color-option" onclick="changeThemeColor('#D2691E')" style="background:#D2691E" title="Chocolate"></div>
+            
+            <!-- Row 8: Grays & Browns -->
+            <div class="color-option" onclick="changeThemeColor('#2F4F4F')" style="background:#2F4F4F" title="DarkSlateGray"></div>
+            <div class="color-option" onclick="changeThemeColor('#696969')" style="background:#696969" title="DimGray"></div>
+            <div class="color-option" onclick="changeThemeColor('#708090')" style="background:#708090" title="SlateGray"></div>
+            <div class="color-option" onclick="changeThemeColor('#8B4513')" style="background:#8B4513" title="SaddleBrown"></div>
+            <div class="color-option" onclick="changeThemeColor('#556B2F')" style="background:#556B2F" title="DarkOliveGreen"></div>
+          </div>
+        </div>
+        <div id="username">
+          <span id="userDisplayName">پارسا سخن سنج</span>
+        </div>
       </div>
     </div>
   </div>
@@ -413,13 +424,6 @@
         <div class="dropdown-item" onclick="openPanel('seller')">فروشنده</div>
         <div class="dropdown-item" onclick="openPanel('admin')">مدیریت</div>
         <div class="dropdown-item" onclick="openPanel('courier')">پیک</div>
-      </div>
-    </div>
-    <div class="nav-tab panel-dropdown">
-      <span id="infoTitle">راهنمای پلتفرم DigiPlus ▾</span>
-      <div class="dropdown-menu" id="infoMenu">
-        <div class="dropdown-item" onclick="showSection('workflows')">📄 جریان‌های کار</div>
-        <div class="dropdown-item" onclick="showSection('trustSolution')">🛡️ راه‌حل اعتماد</div>
       </div>
     </div>
   </div>
@@ -564,8 +568,7 @@
   </div>
 
   <!-- صفحه جریان‌های کار -->
-  <div id="workflows" class="content-card" style="display:none">
-    <h3>📄 جریان‌های کار Realtime</h3>
+  <div id="workflows" style="display:none">
     <div style="background: linear-gradient(135deg, var(--theme-color, #800080), #764ba2); color: white; padding: 40px; border-radius: 20px;">
       <h2 style="text-align: center; font-size: 2rem; margin-bottom: 30px; color: white;">
         📄 جریان کار Real-time Workflows
@@ -578,13 +581,13 @@
           <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 1.1rem;">🛡️ جریان کار برچسب اعتماد:</h5>
           <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.9rem;">
             <span style="background: rgba(128,0,128,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل فروشنده</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(39,174,96,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">درخواست تیک اعتماد</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(231,76,60,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل مدیریت</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(52,152,219,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">تایید مدیر</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(155,89,182,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">صفحه فروشگاه: نشان تیک اعتماد</span>
           </div>
         </div>
@@ -594,13 +597,13 @@
           <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 1.1rem;">🏢 جریان کار زیرمجموعه دیجی پلاس:</h5>
           <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.9rem;">
             <span style="background: rgba(128,0,128,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل فروشنده</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(138,43,226,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">درخواست زیرمجموعه</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(231,76,60,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل مدیریت</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(52,152,219,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">تایید مدیر</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(255,193,7,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">فروشگاه: نام "دیجی-" + افکت نئون</span>
           </div>
         </div>
@@ -610,29 +613,29 @@
           <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 1.1rem;">🔥 جریان کار حراج ویژه:</h5>
           <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.9rem;">
             <span style="background: rgba(128,0,128,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل فروشنده</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(255,20,147,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">تنظیم درصد تخفیف</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(231,76,60,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">تایمر شمارش معکوس</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(52,152,219,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">فروشگاه: برچسب حراج</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(39,174,96,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">قیمت تخفیف‌خورده + تایمر</span>
-          </div>
+           </div>
         </div>
-
+        
         <!-- Workflow 4: تحویل کالا -->
         <div style="padding: 20px; background: rgba(255,255,255,0.08); border-radius: 15px; border-right: 4px solid #3498DB;">
           <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 1.1rem;">📦 جریان کار تحویل کالا:</h5>
           <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.9rem;">
             <span style="background: rgba(52,152,219,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل پیک</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(39,174,96,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">تایید تحویل + امضا</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(231,76,60,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل مدیریت</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(46,204,113,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">نمایش تیک سبز</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(241,196,15,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">انتقال وجه به فروشنده</span>
           </div>
         </div>
@@ -642,13 +645,13 @@
           <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 1.1rem;">↩️ جریان کار مرجوعی کالا:</h5>
           <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.9rem;">
             <span style="background: rgba(155,89,182,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">سفارشات من</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(230,126,34,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">درخواست مرجوعی</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(39,174,96,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">بازگشت وجه فوری</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(231,76,60,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">پنل مدیریت</span>
-            <span style="color: #ffd700; font-size: 1.2rem;">←</span>
+            <span style="color: #ffd700; font-size: 1.2rem;">→</span>
             <span style="background: rgba(52,152,219,0.4); padding: 8px 12px; border-radius: 8px; white-space: nowrap; color: white;">نمایش وضعیت مرجوعی</span>
           </div>
         </div>
@@ -661,9 +664,9 @@
     </div>
   </div>
 
-  <!-- صفحه راه‌حل اعتماد -->
-  <div id="trustSolution" class="content-card" style="display:none">
-    <h3>🛡️ حل مشکل عدم اعتماد</h3>
+  <!-- صفحه حل مشکل عدم اعتماد -->
+  <div id="trustSolution" style="display:none">
+    <h3 style="color:white;text-align:center;font-size:2rem;margin-bottom:30px">🛡️ حل مشکل عدم اعتماد</h3>
     <div style="background: linear-gradient(135deg, var(--theme-color, #800080), #764ba2); color: white; padding: 30px; border-radius: 15px;">
       
         <!-- توضیح مشکل -->
@@ -691,8 +694,8 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; align-items: stretch;">
           
           <!-- برچسب اعتماد -->
-          <div style="background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #27ae60;">
-            <div style="flex: 1;">
+          <div style="background: rgba(255,255,255,0.08); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #27ae60;">
+            <div>
               <div style="font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
                 <span>🥇</span>
                 <span>برچسب اعتماد دیجی‌کالا</span>
@@ -708,8 +711,8 @@
           </div>
 
           <!-- زیرمجموعه برند انحصاری -->
-          <div style="background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #8A2BE2;">
-            <div style="flex: 1;">
+          <div style="background: rgba(255,255,255,0.08); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #8A2BE2;">
+            <div>
               <div style="font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
                 <span>⭐</span>
                 <span>زیرمجموعه برند انحصاری دیجی کالا شدن</span>
@@ -723,8 +726,8 @@
           </div>
 
           <!-- حراج ویژه فوری -->
-          <div style="background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #FF1493;">
-            <div style="flex: 1;">
+          <div style="background: rgba(255,255,255,0.08); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #FF1493;">
+            <div>
               <div style="font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
                 <span>🔥</span>
                 <span>حراج ویژه فوری</span>
@@ -739,10 +742,9 @@
             </div>
           </div>
 
-          <!-- ردیف دوم -->
           <!-- پرداخت امن -->
-          <div style="background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #3498DB;">
-            <div style="flex: 1;">
+          <div style="background: rgba(255,255,255,0.08); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #3498DB;">
+            <div>
               <div style="font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
                 <span>💳</span>
                 <span>پرداخت امن (Escrow)</span>
@@ -756,8 +758,8 @@
           </div>
 
           <!-- مرجوعی 14 روزه -->
-          <div style="background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #FF1493;">
-            <div style="flex: 1;">
+          <div style="background: rgba(255,255,255,0.08); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #FF1493;">
+            <div>
               <div style="font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
                 <span>↩️</span>
                 <span>مرجوعی 14 روزه</span>
@@ -771,8 +773,8 @@
           </div>
 
           <!-- تحویل با امضای دیجیتال -->
-          <div style="background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #FF6347;">
-            <div style="flex: 1;">
+          <div style="background: rgba(255,255,255,0.08); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #FF6347;">
+            <div>
               <div style="font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
                 <span>📦✉️</span>
                 <span>تحویل با امضای دیجیتال</span>
@@ -786,8 +788,8 @@
           </div>
 
           <!-- آموزش فروش -->
-          <div style="background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #FFD700;">
-            <div style="flex: 1;">
+          <div style="background: rgba(255,255,255,0.08); padding: 22px; border-radius: 15px; transition: all 0.25s ease; min-height: 200px; display: flex; flex-direction: column; justify-content: flex-start; border-right: 4px solid #FFD700;">
+            <div>
               <div style="font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
                 <span>📚</span>
                 <span>آموزش ترفندها و تکنیک‌های فروش برای فروشندگان</span>
@@ -801,9 +803,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-
   </div>
 
 </div>
@@ -1209,11 +1208,20 @@ function showTrainingContent(type) {
 }
 
 function showSection(id){
-  ['shop','cart','myorders','customer','seller','admin','courier','salesTraining','trainingContent','workflows','trustSolution'].forEach(s=>document.getElementById(s).style.display='none');
-  document.getElementById(id).style.display='block';
+  ['shop','cart','myorders','customer','seller','admin','courier','salesTraining','trainingContent','workflows','trustSolution'].forEach(s=>{
+    const element = document.getElementById(s);
+    if(element) element.style.display='none';
+  });
+  
+  const targetElement = document.getElementById(id);
+  if(targetElement) {
+    targetElement.style.display='block';
+  }
+  
   document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
   if(id === 'shop') {
-    document.querySelector('.nav-tab').classList.add('active');
+    const shopTab = document.querySelector('.nav-tab');
+    if(shopTab) shopTab.classList.add('active');
   }
   if(['customer','seller','admin','courier'].includes(id)) {
     state.currentPanel = id;
@@ -1224,20 +1232,20 @@ function showSection(id){
   const trainingIcon = document.getElementById('trainingIcon');
   
   if(state.currentPanel === 'customer') {
-    ordersIcon.style.display = 'block';
-    cartIcon.style.display = 'block';
-    balanceDiv.style.display = 'block';
-    trainingIcon.style.display = 'none';
+    if(ordersIcon) ordersIcon.style.display = 'block';
+    if(cartIcon) cartIcon.style.display = 'block';
+    if(balanceDiv) balanceDiv.style.display = 'block';
+    if(trainingIcon) trainingIcon.style.display = 'none';
   } else if(state.currentPanel === 'seller') {
-    ordersIcon.style.display = 'none';
-    cartIcon.style.display = 'none';
-    balanceDiv.style.display = 'none';
-    trainingIcon.style.display = 'block';
+    if(ordersIcon) ordersIcon.style.display = 'none';
+    if(cartIcon) cartIcon.style.display = 'none';
+    if(balanceDiv) balanceDiv.style.display = 'none';
+    if(trainingIcon) trainingIcon.style.display = 'block';
   } else {
-    ordersIcon.style.display = 'none';
-    cartIcon.style.display = 'none';
-    balanceDiv.style.display = 'none';
-    trainingIcon.style.display = 'none';
+    if(ordersIcon) ordersIcon.style.display = 'none';
+    if(cartIcon) cartIcon.style.display = 'none';
+    if(balanceDiv) balanceDiv.style.display = 'none';
+    if(trainingIcon) trainingIcon.style.display = 'none';
   }
 }
 
@@ -1277,19 +1285,9 @@ function openPanel(id){
 
 document.addEventListener('click',e=>{
   if(!e.target.closest('.panel-dropdown'))document.getElementById('panelMenu').classList.remove('show');
-  if(!e.target.closest('.panel-dropdown'))document.getElementById('infoMenu').classList.remove('show');
   if(!e.target.closest('.color-picker'))document.getElementById('colorPickerMenu').classList.remove('show');
 });
 document.querySelector('.panel-dropdown').onclick=function(e){document.getElementById('panelMenu').classList.toggle('show')}
-
-// Add event listener for info dropdown
-document.addEventListener('DOMContentLoaded', function() {
-  const infoDropdown = document.querySelector('#infoTitle').parentElement;
-  infoDropdown.onclick = function(e) {
-    e.stopPropagation();
-    document.getElementById('infoMenu').classList.toggle('show');
-  }
-});
 
 document.addEventListener('DOMContentLoaded',()=>{
   // Set initial theme color CSS variable
